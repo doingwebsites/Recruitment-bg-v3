@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Poppins, Geist_Mono } from 'next/font/google'
+
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -7,6 +8,19 @@ const inter = Inter({
   subsets: ["latin"],
   variable: '--font-inter'
 });
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'], // Most commonly used weights
+  variable: '--font-sans',
+  display: 'swap',
+})
+
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'Recruitment.bg | IT Recruitment Agency Bulgaria',
@@ -38,11 +52,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} font-sans antialiased`}>
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
-      </body>
-    </html>
+  <html lang="en" className={`${poppins.variable} ${geistMono.variable}`}>
+  <body className="font-sans antialiased">
+    {children}
+    {process.env.NODE_ENV === 'production' && <Analytics />}
+  </body>
+</html>
   )
 }

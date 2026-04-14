@@ -43,15 +43,15 @@ const services: Service[] = [
 
 export function Services(): React.JSX.Element {
   return (
-    <section id="services" className="py-24 lg:py-32 bg-secondary/50">
+    <section id="services" className="py-24 lg:py-32 mb-[200px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-2xl mx-auto text-center mb-16 lg:mb-20">
-          <p className="text-sm font-medium text-accent uppercase tracking-wider mb-4">
+          <p className="text-md font-medium text-[#085689] uppercase tracking-wider mb-4">
             Our Services
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground text-balance">
-            Comprehensive IT Recruitment Solutions
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black mb-6 text-balance">
+            What we do
           </h2>
         </div>
 
@@ -60,13 +60,13 @@ export function Services(): React.JSX.Element {
           {services.map((service, index) => {
             const IconComponent = service.icon
             return (
-              <Card 
-                key={index} 
-                className="group hover:border-accent/50 hover:shadow-lg transition-all duration-300"
+              <Card
+                key={index}
+                className="group hover:border-[#78B6D9] hover:shadow-lg transition-all duration-300 bg-[#f5f5f5]"
               >
                 <CardHeader>
                   <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
-                    <IconComponent className="w-6 h-6 text-accent" />
+                    <IconComponent className="w-6 h-6 text-[#085689]" />
                   </div>
                   <CardTitle className="text-lg">{service.title}</CardTitle>
                 </CardHeader>

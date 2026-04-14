@@ -28,7 +28,7 @@ const values: Value[] = [
 
 export function About(): React.JSX.Element {
   return (
-    <section id="about" className="py-24 lg:py-32">
+    <section id="about" className="py-24 lg:py-32 mb-[200px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Content */}
@@ -40,7 +40,7 @@ export function About(): React.JSX.Element {
               A Decade of Building Tech Teams
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              With more than 10 years of IT recruitment experience, we have built a trustworthy 
+              With more than 14 years of IT recruitment experience, we have built a trustworthy 
               and strategic approach to hiring top professionals. We understand the tech industry, 
               its challenges, and what it takes to build successful teams.
             </p>
