@@ -41,7 +41,6 @@ export function CallToAction(): React.JSX.Element {
               I&apos;m a Company
             </Button>
 
-            {/* Candidate - Right */}
             <Button
               variant={activeTab === "candidate" ? "default" : "ghost"}
               onClick={() => setActiveTab("candidate")}
