@@ -11,7 +11,10 @@ import { ProcessSection } from "@/components/process"
 import { About } from "@/components/about"
 import { MeetTheTeam } from "@/components/meet-the-team"
 import { SmartRSection } from "@/components/smartr"
+import { CandidatesSection } from "@/components/candidates-section"
 import { WhyChooseUs } from "@/components/why-choose-us"
+import { JobsSection } from "@/components/jobs"
+import { Testimonials } from "@/components/testimonials"
 import { CallToAction } from "@/components/call-to-action"
 import { Footer } from "@/components/footer"
 import { SocialSidebar } from "@/components/social-sidebar"
@@ -53,8 +56,13 @@ export default function Home(): React.JSX.Element {
         <ProcessSection />
       </ScrollReveal>
 
+
       <ScrollReveal>
         <SmartRSection />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <CandidatesSection />
       </ScrollReveal>
 
       <ScrollReveal>
@@ -66,6 +74,15 @@ export default function Home(): React.JSX.Element {
       </ScrollReveal>
 
       <ScrollReveal>
+        <JobsSection />
+      </ScrollReveal>
+
+       <ScrollReveal>
+        <Testimonials />
+      </ScrollReveal>
+
+
+      <ScrollReveal>
         <MeetTheTeam />
       </ScrollReveal>
 
@@ -73,9 +90,8 @@ export default function Home(): React.JSX.Element {
         <CallToAction />
       </ScrollReveal>
 
-      <ScrollReveal>
+
         <Footer />
-      </ScrollReveal>
 
     </main>
   )

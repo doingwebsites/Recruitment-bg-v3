@@ -1,17 +1,19 @@
-import * as React from "react"
-import Link from "next/link"
-import { Separator } from "@/components/ui/separator"
-import { Linkedin, Mail } from "lucide-react"
+"use client";   // ←←← THIS IS THE MOST IMPORTANT LINE
+
+import * as React from "react";
+import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
+import { Linkedin, Mail } from "lucide-react";
 
 interface FooterLink {
-  label: string
-  href: string
+  label: string;
+  href: string;
 }
 
 interface FooterLinks {
-  services: FooterLink[]
-  company: FooterLink[]
-  candidates: FooterLink[]
+  services: FooterLink[];
+  company: FooterLink[];
+  candidates: FooterLink[];
 }
 
 const footerLinks: FooterLinks = {
@@ -27,22 +29,16 @@ const footerLinks: FooterLinks = {
     { label: "Contact", href: "#contact" },
   ],
   candidates: [
-    { label: "Find a Job", href: "#contact" },
+    { label: "Find a Job", href: "#jobs" },
     { label: "Submit CV", href: "#contact" },
-    { label: "Career Advice", href: "#" },
+    { label: "Career Advice", href: "#contact" },
   ],
-}
+};
 
-interface SocialLink {
-  icon: React.ComponentType<{ className?: string }>
-  href: string
-  label: string
-}
-
-const socialLinks: SocialLink[] = [
+const socialLinks = [
   {
     icon: Linkedin,
-    href: "https://linkedin.com",
+    href: "https://linkedin.com/company/recruitmentbg",
     label: "LinkedIn",
   },
   {
@@ -50,58 +46,85 @@ const socialLinks: SocialLink[] = [
     href: "mailto:contact@recruitment.bg",
     label: "Email",
   },
-]
+];
+
+// Smooth scroll with nice highlight (same as Header)
+const scrollToSection = (href: string) => {
+  const id = href.replace("#", "");
+  const element = document.getElementById(id);
+
+  if (!element) return;
+
+  const headerOffset = 100;
+  const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+  const offsetPosition = elementPosition - headerOffset;
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: "smooth",
+  });
+
+  // Cool highlight animation
+  element.style.transition = "box-shadow 0.6s ease";
+  element.style.boxShadow = "0 0 0 6px rgba(8, 86, 137, 0.25)";
+  setTimeout(() => {
+    element.style.boxShadow = "none";
+  }, 1400);
+};
 
 export function Footer(): React.JSX.Element {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-foreground text-background border-t border-border">
+    <footer className="bg-[#f3f3f3] text-black border-t border-white/10">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
-          {/* Brand */}
+          {/* Brand / Logo */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="inline-block mb-6">
-              <span className="text-xl font-semibold tracking-tight">
-                Recruitment<span className="text-accent">.bg</span>
-              </span>
+              <img
+                src="/uploaded/recr-blue.png"
+                alt="Recruitment.bg"
+                className="h-10 w-auto"
+              />
             </Link>
-            <p className="text-background/60 text-sm leading-relaxed mb-6">
+            <p className="text-black text-sm leading-relaxed mb-6 max-w-xs">
               IT recruitment agency connecting top tech talent with leading companies in Bulgaria and beyond.
             </p>
+
             <div className="flex items-center gap-4">
               {socialLinks.map((social) => {
-                const IconComponent = social.icon
+                const IconComponent = social.icon;
                 return (
                   <a
                     key={social.label}
                     href={social.href}
                     target={social.href.startsWith("http") ? "_blank" : undefined}
                     rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="w-10 h-10 rounded-lg bg-background/10 flex items-center justify-center hover:bg-accent transition-colors group"
+                    className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all group"
                     aria-label={social.label}
                   >
-                    <IconComponent className="w-5 h-5 text-background group-hover:text-accent-foreground transition-colors" />
+                    <IconComponent className="w-5 h-5 text-[#78B6D9] group-hover:scale-110 transition-transform" />
                   </a>
-                )
+                );
               })}
             </div>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-[#085689]">
               Services
             </h4>
             <ul className="flex flex-col gap-3">
               {footerLinks.services.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-background/60 hover:text-accent transition-colors"
+                  <button
+                    onClick={() => scrollToSection(link.href)}
+                    className="text-sm text-slate-500 hover:text-[#78B6D9]  text-left"
                   >
                     {link.label}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -109,18 +132,18 @@ export function Footer(): React.JSX.Element {
 
           {/* Company */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-[#085689]">
               Company
             </h4>
             <ul className="flex flex-col gap-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-background/60 hover:text-accent transition-colors"
+                  <button
+                    onClick={() => scrollToSection(link.href)}
+                    className="text-sm text-slate-500 hover:text-[#78B6D9]  transition-colors text-left"
                   >
                     {link.label}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -128,47 +151,40 @@ export function Footer(): React.JSX.Element {
 
           {/* Candidates */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-[#085689]">
               For Candidates
             </h4>
             <ul className="flex flex-col gap-3">
               {footerLinks.candidates.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-background/60 hover:text-accent transition-colors"
+                  <button
+                    onClick={() => scrollToSection(link.href)}
+                    className="text-sm text-slate-500 hover:text-[#78B6D9] transition-colors text-left"
                   >
                     {link.label}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar - Using Radix UI Separator */}
-        <Separator className="my-12 bg-background/10" />
-        
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-background/60">
-            &copy; {currentYear} Recruitment.bg. All rights reserved.
+        <Separator className="my-12 bg-white/10" />
+
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+          <p className="text-slate-500">
+            © {currentYear} Recruitment.bg. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link
-              href="#"
-              className="text-sm text-background/60 hover:text-accent transition-colors"
-            >
+            <Link href="#" className="text-slate-500 hover:text-[#78B6D9] transition-colors">
               Privacy Policy
             </Link>
-            <Link
-              href="#"
-              className="text-sm text-background/60 hover:text-accent transition-colors"
-            >
+            <Link href="#" className="text-slate-500 hover:text-[#78B6D9] transition-colors">
               Terms of Service
             </Link>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }

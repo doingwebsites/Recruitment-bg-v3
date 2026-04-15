@@ -10,7 +10,7 @@ const features = [
 
 export function SmartRSection() {
     return (
-        <section id="smartr" className="py-24 md:py-32 px-6 mb-[100px]" >
+        <section id="smartr" className="py-24 md:py-32 px-6 mb-[200px]" >
             <div className="max-w-4xl mx-auto text-center">
                 <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-8">
                     <Sparkles className="w-4 h-4 text-orange-500" />
@@ -44,15 +44,18 @@ export function SmartRSection() {
                 </ul>
 
                 <div className="flex flex-wrap justify-center gap-4">
-                    <Button className="bg-[#085689]  text-white hover:bg-[#78B6D9] hover:text-black rounded-lg px-8 py-6 text-base">
-                        See smart.R in action
+                    <a href="https://smartr-olive.vercel.app/" target="_blank" rel="noopener noreferrer">
+                        <Button className="bg-[#085689] text-white hover:bg-[#78B6D9] hover:text-black rounded-lg px-8 py-6 text-base">
+                            See smart.R in action
+                        </Button>
+                    </a>
+
+                    <Button
+                        variant="outline"
+                        className="bg-trasparent text-black hover:bg-[#78B6D9] hover:text-white rounded-lg px-8 py-6 text-base"
+                    >
+                        Book a consultation
                     </Button>
-                   <Button
-              variant="outline"
-              className="bg-trasparent   text-black hover:bg-[#78B6D9] hover:text-white  rounded-lg px-8 py-6 text-base"
-            >
-              Book a consultation
-            </Button>
                 </div>
             </div>
         </section>

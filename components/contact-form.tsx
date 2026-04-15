@@ -1,11 +1,12 @@
-"use client"
+"use client";
+import { contactFormSchema, type ContactFormData } from "@/lib/schemas"
 
-import * as React from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+import * as React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Form,
   FormControl,
@@ -13,21 +14,26 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Spinner } from "@/components/ui/spinner"
-import { contactFormSchema, type ContactFormData, inquiryTypeOptions } from "@/lib/schemas"
-import { Send, CheckCircle } from "lucide-react"
+} from "@/components/ui/select";
+import { Spinner } from "@/components/ui/spinner";
+import { Send, CheckCircle } from "lucide-react";
 
-export function ContactForm(): React.JSX.Element {
-  const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false)
-  const [isSubmitted, setIsSubmitted] = React.useState<boolean>(false)
+type Mode = "candidate" | "company";
+
+interface ContactFormProps {
+  mode?: Mode;
+}
+
+export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX.Element {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -35,70 +41,68 @@ export function ContactForm(): React.JSX.Element {
       name: "",
       email: "",
       phone: "",
-      inquiryType: undefined,
+      title: "",
       message: "",
     },
-  })
+  });
 
-  async function onSubmit(data: ContactFormData): Promise<void> {
-    setIsSubmitting(true)
+  async function onSubmit(data: ContactFormData) {
+    setIsSubmitting(true);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    console.log("Form submitted:", { mode, ...data });
     
-    // In production, you would send this to your API
-    console.log("Form submitted:", data)
-    
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    form.reset()
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+    form.reset();
   }
 
   if (isSubmitted) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-center">
-        <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-6">
-          <CheckCircle className="w-8 h-8 text-accent" />
+      <div className="flex flex-col items-center justify-center py-12 text-center ">
+        <div className="w-16 h-16 rounded-full bg-[#085689]/10 flex items-center justify-center mb-6">
+          <CheckCircle className="w-8 h-8 text-[#085689]" />
         </div>
-        <h3 className="text-xl font-semibold text-foreground mb-2">
-          Thank you for reaching out!
-        </h3>
-        <p className="text-muted-foreground mb-6">
-          We&apos;ll get back to you within 24 hours.
-        </p>
-        <Button
-          variant="outline"
+        <h3 className="text-2xl font-semibold mb-2">Thank you!</h3>
+        <p className="text-slate-600">We&apos;ll get back to you within 24 hours.</p>
+        <Button 
+          variant="outline" 
+          className="mt-6"
           onClick={() => setIsSubmitted(false)}
         >
           Send another message
         </Button>
       </div>
-    )
+    );
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
-        <div className="grid sm:grid-cols-2 gap-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>{mode === "company" ? "Company Name" : "Full Name"}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your name" {...field} />
+                  <Input 
+                    placeholder={mode === "company" ? "Company Name" : "John Doe"} 
+                    {...field} 
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Email Address</FormLabel>
                 <FormControl>
                   <Input type="email" placeholder="your@email.com" {...field} />
                 </FormControl>
@@ -108,13 +112,13 @@ export function ContactForm(): React.JSX.Element {
           />
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <FormField
             control={form.control}
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone (optional)</FormLabel>
+                <FormLabel>Phone Number</FormLabel>
                 <FormControl>
                   <Input type="tel" placeholder="+359 888 123 456" {...field} />
                 </FormControl>
@@ -122,26 +126,19 @@ export function ContactForm(): React.JSX.Element {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
-            name="inquiryType"
+            name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Inquiry Type</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select inquiry type" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {inquiryTypeOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <FormLabel>{mode === "company" ? "Title" : "Job Title / Position"}</FormLabel>
+                <FormControl>
+                  <Input 
+                    placeholder={mode === "company" ? "Hiring Manager" : "Senior Frontend Developer"} 
+                    {...field} 
+                  />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
@@ -153,11 +150,15 @@ export function ContactForm(): React.JSX.Element {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Message</FormLabel>
+              <FormLabel>Your Message</FormLabel>
               <FormControl>
                 <Textarea 
-                  placeholder="Tell us about your needs..." 
-                  className="min-h-[120px] resize-none"
+                  placeholder={
+                    mode === "company" 
+                      ? "Tell us about your hiring needs, positions, budget range..." 
+                      : "Tell us about your career goals and what you're looking for..."
+                  } 
+                  className="min-h-[140px] resize-none"
                   {...field} 
                 />
               </FormControl>
@@ -169,7 +170,7 @@ export function ContactForm(): React.JSX.Element {
         <Button 
           type="submit" 
           size="lg" 
-          className="w-full sm:w-auto self-start"
+          className="w-full bg-[#085689] hover:bg-[#0a6a9c]"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
@@ -178,13 +179,10 @@ export function ContactForm(): React.JSX.Element {
               Sending...
             </>
           ) : (
-            <>
-              Send Message
-              <Send className="ml-2 h-4 w-4" />
-            </>
+            "Send Message"
           )}
         </Button>
       </form>
     </Form>
-  )
+  );
 }

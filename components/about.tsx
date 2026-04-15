@@ -1,79 +1,89 @@
-import * as React from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Heart, Handshake, Sparkles, type LucideIcon } from "lucide-react"
+import * as React from "react";
+import Image from "next/image";
+import { Heart, Handshake, Sparkles } from "lucide-react";
 
-interface Value {
-  icon: LucideIcon
-  title: string
-  description: string
-}
-
-const values: Value[] = [
+const values = [
   {
     icon: Heart,
     title: "Honesty",
-    description: "Transparent communication at every step of the recruitment process.",
   },
   {
     icon: Handshake,
-    title: "Long-term Relationships",
-    description: "Building partnerships that last, not just filling positions.",
+    title: "Relationships",
   },
   {
     icon: Sparkles,
-    title: "Passion for People",
-    description: "Genuine care for both candidates and clients we work with.",
+    title: "Passion",
   },
-]
+];
 
 export function About(): React.JSX.Element {
   return (
     <section id="about" className="py-24 lg:py-32 mb-[200px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          {/* Content */}
-          <div>
-            <p className="text-sm font-medium text-accent uppercase tracking-wider mb-4">
-              About Us
-            </p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground text-balance mb-6">
-              A Decade of Building Tech Teams
-            </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              With more than 14 years of IT recruitment experience, we have built a trustworthy 
-              and strategic approach to hiring top professionals. We understand the tech industry, 
-              its challenges, and what it takes to build successful teams.
-            </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Our approach is simple: listen carefully, understand deeply, and deliver consistently. 
-              Whether you&apos;re a startup scaling your engineering team or an enterprise seeking 
-              senior leadership, we bring the same dedication to every partnership.
-            </p>
+
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+
+          {/* Left Column: Text + Small Values Row */}
+          <div className="space-y-10">
+
+            {/* About Text */}
+            <div>
+              <p className="text-md font-medium text-[#085689] uppercase tracking-wider mb-4">
+                About Us
+              </p>
+
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground text-balance mb-6">
+                Partnering to Build Exceptional Tech Teams
+              </h2>
+
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Our approach is simple: listen carefully, understand deeply, and deliver consistently.
+                Whether you&apos;re a startup scaling your engineering team or an enterprise seeking
+                senior leadership, we bring the same dedication to every partnership.
+              </p>
+            </div>
+
+            {/* Small Icons Row - Directly Below Description */}
+            <div className="grid grid-cols-3 gap-6 md:gap-10">
+              {values.map((value, index) => {
+                const IconComponent = value.icon;
+                return (
+                  <div
+                    key={index}
+                    className="flex flex-row items-center text-center"
+                  >
+                    {/* Small Icon */}
+                    <div className="w-12 h-12  rounded-2xl  flex items-center justify-center">
+                      <IconComponent className="w-5 h-5 text-[#78B6D9]" />
+          
+                    </div>
+
+                    {/* Title */}
+                    <p className="text-sm font-medium text-black tracking-tight">
+                      {value.title}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Values Grid - Using Radix UI Card */}
-          <div className="flex flex-col gap-6">
-            {values.map((value, index) => {
-              const IconComponent = value.icon
-              return (
-                <Card key={index} className="bg-secondary/50">
-                  <CardHeader className="flex-row items-start gap-6 pb-2">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
-                      <IconComponent className="w-6 h-6 text-accent" />
-                    </div>
-                    <div className="flex-1">
-                      <CardTitle className="text-lg mb-2">{value.title}</CardTitle>
-                      <CardDescription className="text-base leading-relaxed">
-                        {value.description}
-                      </CardDescription>
-                    </div>
-                  </CardHeader>
-                </Card>
-              )
-            })}
+          {/* Right Column: Image */}
+          <div className="relative w-full aspect-[16/10] lg:aspect-[4/3]  overflow-hidden">
+            <Image
+              src="/uploaded/team1.jpg"
+              alt="Team collaborating to build exceptional tech teams"
+              width={1400}
+              height={800}
+              className="w-full h-auto object-cover"
+              priority
+            />
           </div>
+
         </div>
+
       </div>
     </section>
-  )
+  );
 }

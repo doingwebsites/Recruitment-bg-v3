@@ -7,17 +7,14 @@ export function MeetTheTeam() {
     <section className="py-20 lg:py-28 mb-[200px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16">
-          <p className="text-sm font-medium text-[#085689] uppercase tracking-wider mb-4">
+         <p className="text-md font-medium text-[#085689] uppercase tracking-wider mb-4">
             Meet the Team
           </p>
           
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold font-poppins tracking-tight text-slate-900 mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black mb-6 text-balance">
             Nice to meet you
           </h2>
           
-          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
-            Dedicated to matching your skills with the right opportunity.
-          </p>
         </div>
 
         <div className="relative shadow-2xl">
