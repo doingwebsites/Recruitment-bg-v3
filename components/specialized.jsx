@@ -13,46 +13,49 @@ const technologies = [
     "PHP",
     "iOS",
     "Android",
+    "Project",
+    "Product",
+    "Delivery Managers",
 ];
 
 const categories = [
     {
         title: "Software Development",
-        techs: ["React", "Angular", "Vue", ".NET", "Java"],
+        techs: ["React", "Angular", "Vue", ".NET", "Java", "TypeScript", "JavaScript", "REST APIs", "GraphQL", "Express"],
     },
     {
         title: "DevOps & Infrastructure",
-        techs: ["Docker", "Kubernetes", "AWS", "Azure", "CI/CD"],
+        techs: ["Docker", "Kubernetes", "AWS", "Azure", "CI/CD", "Terraform", "GitHub Actions"],
     },
     {
         title: "QA & Test Automation",
-        techs: ["Selenium", "Cypress", "Jest", "Playwright"],
+        techs: ["Selenium", "Cypress", "Jest", "Playwright", "API Testing", "Test Automation", "TestNG"],
     },
     {
         title: "Data Engineering & BI",
-        techs: ["Hadoop", "Spark", "Tableau", "Power BI"],
+        techs: ["Hadoop", "Spark", "Tableau", "Power BI", "SQL", "ETL Pipelines", "Snowflake"],
     },
     {
         title: "Data Science & Analytics",
-        techs: ["Python", "R", "TensorFlow", "PyTorch"],
+        techs: ["Python", "Machine Learning", "TensorFlow", "PyTorch", "Pandas", "NLP"],
     },
     {
         title: "UI/UX & Product Design",
-        techs: ["Figma", "Sketch", "Adobe XD", "InVision"],
+        techs: ["Figma", "Sketch", "Adobe XD", "InVision", "Design Systems", "Prototyping"],
     },
     {
         title: "CRM & ERP Systems",
-        techs: ["Salesforce", "SAP", "Microsoft Dynamics"],
+        techs: ["Salesforce", "SAP", "Microsoft Dynamics", "Business Process Automation"],
     },
     {
         title: "Tech Leadership",
-        techs: ["Agile", "Scrum", "Kanban", "Team Management"],
+        techs: ["Agile", "Scrum", "Kanban", "Team Management", "Stakeholder Management", "Roadmapping"],
     },
 ];
 
 export function SpecializedRecruitment() {
     return (
-        <section className="py-20 lg:py-28 mb-[200px]">
+        <section className="py-20 lg:py-28 lg:mb-[120px] md:mb-[50px] sm:md-[0px]">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-16">
@@ -65,14 +68,14 @@ export function SpecializedRecruitment() {
                         Specialized recruitment
                     </h2>
 
-    
+
                     <p className="text-xl text-slate-600 leading-relaxed">
                         Our team of industry-specialized recruiters brings deep expertise to
                         your talent search.          </p>
                 </div>
 
                 {/* Tech Stack Pills */}
-                <div className="flex flex-wrap justify-center gap-3 mb-16">
+                <div className="flex flex-wrap justify-center gap-2.5 mb-16">
                     {technologies.map((tech) => (
                         <Badge
                             key={tech}

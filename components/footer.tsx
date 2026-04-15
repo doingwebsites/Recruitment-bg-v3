@@ -1,4 +1,4 @@
-"use client";   // ←←← THIS IS THE MOST IMPORTANT LINE
+"use client";
 
 import * as React from "react";
 import Link from "next/link";
@@ -48,7 +48,6 @@ const socialLinks = [
   },
 ];
 
-// Smooth scroll with nice highlight (same as Header)
 const scrollToSection = (href: string) => {
   const id = href.replace("#", "");
   const element = document.getElementById(id);
@@ -64,7 +63,6 @@ const scrollToSection = (href: string) => {
     behavior: "smooth",
   });
 
-  // Cool highlight animation
   element.style.transition = "box-shadow 0.6s ease";
   element.style.boxShadow = "0 0 0 6px rgba(8, 86, 137, 0.25)";
   setTimeout(() => {
@@ -83,13 +81,19 @@ export function Footer(): React.JSX.Element {
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="inline-block mb-6">
               <img
-                src="/uploaded/recr-blue.png"
+                src="/uploaded/recr-logo.png"
                 alt="Recruitment.bg"
                 className="h-10 w-auto"
               />
             </Link>
-            <p className="text-black text-sm leading-relaxed mb-6 max-w-xs">
+            
+            <p className="text-black text-sm leading-relaxed mb-2 max-w-xs">
               IT recruitment agency connecting top tech talent with leading companies in Bulgaria and beyond.
+            </p>
+
+            {/* Sofia, Bulgaria - Added here */}
+            <p className="text-[#085689] font-medium text-sm mb-6">
+              Sofia, Bulgaria
             </p>
 
             <div className="flex items-center gap-4">
@@ -121,7 +125,7 @@ export function Footer(): React.JSX.Element {
                 <li key={link.label}>
                   <button
                     onClick={() => scrollToSection(link.href)}
-                    className="text-sm text-slate-500 hover:text-[#78B6D9]  text-left"
+                    className="text-sm text-slate-500 hover:text-[#78B6D9] text-left transition-colors"
                   >
                     {link.label}
                   </button>
@@ -140,7 +144,7 @@ export function Footer(): React.JSX.Element {
                 <li key={link.label}>
                   <button
                     onClick={() => scrollToSection(link.href)}
-                    className="text-sm text-slate-500 hover:text-[#78B6D9]  transition-colors text-left"
+                    className="text-sm text-slate-500 hover:text-[#78B6D9] transition-colors text-left"
                   >
                     {link.label}
                   </button>

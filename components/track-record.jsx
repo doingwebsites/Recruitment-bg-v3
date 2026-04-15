@@ -29,7 +29,7 @@ function AnimatedCounter({ value, label, description }) {
   useEffect(() => {
     if (!isVisible) return;
 
-    const duration = 1800;
+    const duration = 1000;
     const steps = 50;
     const increment = numericValue / steps;
     let current = 0;
@@ -70,7 +70,7 @@ function AnimatedCounter({ value, label, description }) {
 
 export function TrustSection() {
   return (
-    <section className="py-24 lg:py-32 bg-transparent mb-[200px]">
+    <section className="py-24 lg:py-32 bg-transparent lg:mb-[120px] md:mb-[50px] sm:md-[0px]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto mb-16">
           <p className="text-md font-medium tracking-wider text-[#085689] uppercase mb-4">
@@ -86,7 +86,7 @@ export function TrustSection() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
           {trustMetrics.map((metric, idx) => (
             <AnimatedCounter
               key={idx}

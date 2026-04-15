@@ -125,7 +125,7 @@ export function Testimonials() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 mb-[200px]">
+    <section className="py-20 lg:py-28 lg:mb-[120px] md:mb-[50px] sm:md-[0px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         
         {/* Header */}

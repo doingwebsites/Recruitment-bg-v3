@@ -18,7 +18,7 @@ const stats: StatItem[] = [
 
 export function Hero(): React.JSX.Element {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-20 lg:mb-[0px] md:mb-[50px] sm:md-[0px]">
       <div
         className="absolute inset-0 bg-[size:4rem_4rem]"
         aria-hidden="true"
@@ -47,14 +47,14 @@ export function Hero(): React.JSX.Element {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button className="bg-[#085689]  text-white hover:bg-[#78B6D9] hover:text-black rounded-lg px-8 py-6 text-base">
+            <Button className="bg-[#085689]  w-[150px] text-white hover:bg-[#78B6D9] hover:text-black rounded-lg px-8 py-6 text-base">
               Hire a talent
             </Button>
             <Button
               variant="outline"
-              className="bg-trasparent   text-black hover:bg-[#78B6D9] hover:text-white  rounded-lg px-8 py-6 text-base"
+              className="bg-trasparent  w-[150px] text-black hover:bg-[#78B6D9] hover:text-white  rounded-lg px-8 py-6 text-base"
             >
-              Book a consultation
+              Find a job
             </Button>
           </div>
 

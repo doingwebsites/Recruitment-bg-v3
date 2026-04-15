@@ -22,7 +22,7 @@ const candidateSteps = [
 
 export function CandidatesSection() {
     return (
-        <section className=" px-4 py-24 md:px-8 md:py-32 mb-[200px]">
+        <section className=" px-4 py-24 md:px-8 md:py-32 lg:mb-[120px] md:mb-[50px] sm:md-[0px]">
             <div className="mx-auto max-w-6xl">
 
                 {/* Header */}

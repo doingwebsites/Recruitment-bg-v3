@@ -1,135 +1,141 @@
 "use client";
 
 import * as React from "react";
-import { MapPin, Clock, Filter, X } from "lucide-react";
+import { MapPin, Clock, Filter, X, Search } from "lucide-react";
 
 const sampleJobs = [
   {
     id: 1,
     title: "Frontend Web Developers with React & Next.js",
-    company: "MobiSystems",
+    seniority: "2-5 years",
     location: "Sofia",
     type: "Hybrid",
-    posted: "15 april.",
+    contract: "regular",
     logo: "/company-logos/logo1.svg",
-    category: "frontend",
     techStack: ["React", "Next.js", "TypeScript", "Tailwind"],
+    posted: "15 april.",
   },
   {
     id: 2,
     title: "Principal Developer Full Stack",
-    company: "European Bank",
+    seniority: "5+ years",
     location: "Sofia",
     type: "Hybrid",
-    posted: "15 april.",
+    contract: "b2b",
     logo: "/company-logos/logo2.svg",
-    category: "fullstack",
     techStack: ["Java", "Spring", "React", "PostgreSQL"],
+    posted: "15 april.",
   },
   {
     id: 3,
     title: "Senior Frontend Engineer",
-    company: "Scalefocus",
+    seniority: "2-5 years",
     location: "Plovdiv",
     type: "Remote",
-    posted: "15 april.",
+    contract: "freelance",
     logo: "/company-logos/logo3.svg",
-    category: "frontend",
     techStack: ["Vue", "Nuxt", "TypeScript"],
+    posted: "15 april.",
   },
   {
     id: 4,
     title: "React Developer",
-    company: "Chaos Group",
+    seniority: "1-2 years",
     location: "Sofia",
     type: "Hybrid",
-    posted: "15 april.",
+    contract: "regular",
     logo: "/company-logos/logo4.svg",
-    category: "frontend",
     techStack: ["React", "Three.js", "TypeScript"],
+    posted: "15 april.",
   },
   {
     id: 5,
     title: "Backend Java Developer",
-    company: "Chaos Group",
+    seniority: "2-5 years",
     location: "Sofia",
     type: "Hybrid",
-    posted: "15 april.",
+    contract: "b2b",
     logo: "/company-logos/logo5.svg",
-    category: "backend",
     techStack: ["Java", "Spring Boot", "PostgreSQL"],
+    posted: "15 april.",
   },
   {
     id: 6,
     title: "Full Stack .NET Developer",
-    company: "Chaos Group",
+    seniority: "5+ years",
     location: "Plovdiv",
     type: "Hybrid",
-    posted: "15 april.",
+    contract: "freelance",
     logo: "/company-logos/logo6.svg",
-    category: "fullstack",
     techStack: ["C#", ".NET", "React"],
+    posted: "15 april.",
   },
   {
     id: 7,
     title: "Senior Backend Engineer",
-    company: "Chaos Group",
+    seniority: "2-5 years",
     location: "Varna",
     type: "Hybrid",
-    posted: "15 april.",
+    contract: "regular",
     logo: "/company-logos/logo7.svg",
-    category: "backend",
     techStack: ["Node.js", "Express", "MongoDB"],
+    posted: "15 april.",
   },
   {
     id: 8,
     title: "Frontend React Developer",
-    company: "Chaos Group",
+    seniority: "1-2 years",
     location: "Varna",
     type: "Office",
-    posted: "15 april.",
+    contract: "b2b",
     logo: "/company-logos/logo8.svg",
-    category: "frontend",
     techStack: ["React", "Next.js", "Tailwind"],
+    posted: "15 april.",
   },
-  
 ];
 
 export function JobsSection() {
   const [selectedLocations, setSelectedLocations] = React.useState([]);
   const [selectedType, setSelectedType] = React.useState("all");
-  const [selectedCategory, setSelectedCategory] = React.useState("all");
+  const [selectedTech, setSelectedTech] = React.useState("all");
+  const [searchQuery, setSearchQuery] = React.useState("");
   const [showFilters, setShowFilters] = React.useState(false);
 
   const locations = ["Sofia", "Plovdiv", "Varna", "Fully Remote"];
 
-  const categoryOptions = [
+  const techOptions = [
     { value: "all", label: "All" },
-    { value: "frontend", label: "Frontend" },
-    { value: "backend", label: "Backend" },
-    { value: "fullstack", label: "Full Stack" },
+    { value: "React", label: "React" },
+    { value: "Next.js", label: "Next.js" },
+    { value: "Java", label: "Java" },
+    { value: "Vue", label: "Vue" },
+    { value: "Node.js", label: "Node.js" },
+    { value: ".NET", label: ".NET" },
+    { value: "TypeScript", label: "TypeScript" },
   ];
 
   const filteredJobs = sampleJobs.filter((job) => {
     const locationMatch = selectedLocations.length === 0 || selectedLocations.includes(job.location);
     const typeMatch = selectedType === "all" || job.type.toLowerCase() === selectedType;
-    const categoryMatch = selectedCategory === "all" || job.category === selectedCategory;
+    const techMatch = selectedTech === "all" || job.techStack.includes(selectedTech);
 
-    return locationMatch && typeMatch && categoryMatch;
+    const searchLower = searchQuery.toLowerCase().trim();
+    const searchMatch = !searchLower ||
+      job.title.toLowerCase().includes(searchLower) ||
+      job.techStack.some(tech => tech.toLowerCase().includes(searchLower));
+
+    return locationMatch && typeMatch && techMatch && searchMatch;
   });
 
-  // Dynamic subtitle text
-  const getCategoryLabel = () => {
-    if (selectedCategory === "frontend") return "Frontend Development";
-    if (selectedCategory === "backend") return "Backend Development";
-    if (selectedCategory === "fullstack") return "Full Stack Development";
+  const getSubtitle = () => {
+    if (selectedTech !== "all") return selectedTech;
     return "Development";
   };
 
   return (
-    <section id="jobs" className="py-16 lg:py-24 mb-[200px]">
+    <section id="jobs" className="py-16 lg:py-24 lg:mb-[120px] md:mb-[50px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        
+
         {/* Centered Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <p className="text-sm font-medium text-[#085689] uppercase tracking-widest mb-3">
@@ -138,13 +144,37 @@ export function JobsSection() {
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-black mb-6">
             Job Listings
           </h2>
-          <p className="text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-xl text-slate-600 leading-relaxed">
             Discover your next opportunity in the Bulgarian IT sector. Over 50+ current positions from leading companies.
           </p>
         </div>
 
+        {/* Search Bar - Centered on md & lg, Full width on mobile */}
+        <div className="flex justify-center mb-10">
+          <div className="w-full md:w-[50%] lg:w-[50%]">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search jobs by title or technology..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-white border border-slate-200 pl-12 pr-12 py-4 rounded-3xl text-lg focus:outline-none focus:border-[#78B6D9] transition-colors"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
         <div className="flex flex-col lg:flex-row gap-10">
-          
+
           {/* Mobile Filter Button */}
           <button
             onClick={() => setShowFilters(!showFilters)}
@@ -158,26 +188,25 @@ export function JobsSection() {
           {/* Filters Panel */}
           <div className={`lg:w-80 lg:shrink-0 transition-all ${showFilters ? 'block' : 'hidden'} lg:block`}>
             <div className="bg-[#f5f5f5] border border-slate-200 rounded-3xl p-6 lg:sticky lg:top-8">
-              
+
               <div className="flex justify-between items-center mb-6 lg:hidden">
                 <h3 className="font-semibold text-xl">Filters</h3>
               </div>
 
-              {/* Category Filter */}
+              {/* Technology Filter */}
               <div className="mb-8">
-                <h3 className="font-semibold text-lg mb-4">Job Category</h3>
+                <h3 className="font-semibold text-lg mb-4">Technology</h3>
                 <div className="grid grid-cols-2 gap-2">
-                  {categoryOptions.map((cat) => (
+                  {techOptions.map((tech) => (
                     <button
-                      key={cat.value}
-                      onClick={() => setSelectedCategory(cat.value)}
-                      className={`py-3 px-4 rounded-2xl text-sm font-medium transition-all ${
-                        selectedCategory === cat.value
-                          ? "bg-[#78B6D9] text-white"
-                          : "bg-slate-100 hover:bg-slate-200 text-slate-700"
-                      }`}
+                      key={tech.value}
+                      onClick={() => setSelectedTech(tech.value)}
+                      className={`py-3 px-4 rounded-2xl text-sm font-medium transition-all ${selectedTech === tech.value
+                        ? "bg-[#78B6D9] text-white"
+                        : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                        }`}
                     >
-                      {cat.label}
+                      {tech.label}
                     </button>
                   ))}
                 </div>
@@ -213,11 +242,10 @@ export function JobsSection() {
                     <button
                       key={type}
                       onClick={() => setSelectedType(type)}
-                      className={`w-full text-left px-4 py-3 rounded-2xl transition-all ${
-                        selectedType === type
-                          ? "bg-[#78B6D9] text-white"
-                          : "hover:bg-slate-100 text-slate-700"
-                      }`}
+                      className={`w-full text-left px-4 py-3 rounded-2xl transition-all ${selectedType === type
+                        ? "bg-[#78B6D9] text-white"
+                        : "hover:bg-slate-100 text-slate-700"
+                        }`}
                     >
                       {type === "all" && "All"}
                       {type === "hybrid" && "Hybrid"}
@@ -230,13 +258,18 @@ export function JobsSection() {
             </div>
           </div>
 
-          {/* Jobs Grid */}
+          {/* Main Content */}
           <div className="flex-1">
-            <div className="mb-8">
-              <span className="text-2xl font-semibold ">{filteredJobs.length} listings</span>
-              <span className="text-slate-500 ml-2">for {getCategoryLabel()}</span>
+            {/* Results Header */}
+            <div className="mb-8 flex items-baseline gap-3">
+              <span className="text-2xl font-semibold">{filteredJobs.length} listings</span>
+              <span className="text-slate-500">for {getSubtitle()}</span>
+              {searchQuery && (
+                <span className="text-slate-500 text-sm">matching "{searchQuery}"</span>
+              )}
             </div>
 
+            {/* Jobs Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {filteredJobs.map((job) => (
                 <div
@@ -244,17 +277,11 @@ export function JobsSection() {
                   className="bg-[#f5f5f5] border border-slate-200 rounded-3xl p-6 hover:shadow-lg transition-all duration-300 group h-full flex flex-col"
                 >
                   <div className="flex gap-4">
-                    <img
-                      src={job.logo}
-                      alt={job.company}
-                      className="w-12 h-12 rounded-2xl object-contain border border-slate-100 flex-shrink-0"
-                    />
-
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold text-black group-hover:text-[#085689] transition-colors line-clamp-2">
                         {job.title}
                       </h3>
-                      <p className="text-[#085689] font-medium mt-1">{job.company}</p>
+                      <p className="text-[#085689] font-medium mt-1">{job.seniority}</p>
 
                       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-4 text-sm">
                         <div className="flex items-center gap-1.5 text-slate-600">
@@ -264,27 +291,38 @@ export function JobsSection() {
                         <div className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-medium">
                           {job.type}
                         </div>
-                        <div className="flex items-center gap-1.5 text-slate-500">
-                          <Clock className="w-4 h-4" />
-                          {job.posted}
+                        <div className="px-3 py-1 bg-[#78B6D9] text-white rounded-full text-xs font-medium capitalize">
+                          {job.contract}
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex gap-2 mt-auto pt-6">
-                    {job.techStack.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="text-xs bg-slate-100 text-slate-600 px-3 py-1.5 rounded-xl"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                  <div className="flex items-end justify-between mt-auto pt-6">
+                    <div className="flex flex-wrap gap-2">
+                      {job.techStack.map((tech, i) => (
+                        <span
+                          key={i}
+                          className="text-xs bg-slate-100 text-slate-600 px-3 py-1.5 rounded-xl"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-1.5 text-slate-400 text-xs shrink-0 ml-4">
+                      <Clock className="w-3.5 h-3.5" />
+                      {job.posted}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
+
+            {filteredJobs.length === 0 && (
+              <div className="text-center py-20 text-slate-500">
+                No jobs found matching your criteria.
+              </div>
+            )}
           </div>
         </div>
       </div>

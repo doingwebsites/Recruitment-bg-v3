@@ -52,10 +52,9 @@ export default function Home(): React.JSX.Element {
         <CompaniesSection />
       </ScrollReveal>
 
-      <ScrollReveal>
+      {/* <ScrollReveal>
         <ProcessSection />
-      </ScrollReveal>
-
+      </ScrollReveal> */}
 
       <ScrollReveal>
         <SmartRSection />
@@ -65,13 +64,13 @@ export default function Home(): React.JSX.Element {
         <CandidatesSection />
       </ScrollReveal>
 
-      <ScrollReveal>
+      {/* <ScrollReveal>
         <About />
-      </ScrollReveal>
+      </ScrollReveal> */}
 
-      <ScrollReveal>
+      {/* <ScrollReveal>
         <WhyChooseUs />
-      </ScrollReveal>
+      </ScrollReveal> */}
 
       <ScrollReveal>
         <JobsSection />

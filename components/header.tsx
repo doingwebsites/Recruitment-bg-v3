@@ -8,9 +8,9 @@ import { Menu, X } from "lucide-react";
 const navItems = [
   { label: "Services", href: "#services" },
   { label: "For Companies", href: "#companies" },
-  { label: "Jobs", href: "#jobs" },
+  { label: "For Candidates", href: "#jobs" },
   { label: "About Us", href: "#about" },
-  { label: "smart.R", href: "#smartr" },
+  { label: "smart.R ATS / CRM", href: "#smartr" },
 ];
 
 export function Header() {
@@ -85,9 +85,9 @@ export function Header() {
             {/* Logo */}
             <Link href="/" className="block flex-shrink-0">
               <img
-                src="/uploaded/recr-blue.png"
+                src="/uploaded/recr-logo.png"
                 alt="Recruitment.bg"
-                className="h-9 lg:h-12 w-auto transition-all duration-300"
+                className="h-9 lg:h-12 lg:mt-0 md:mt-0 sm:mt-5 w-auto transition-all duration-300"
               />
             </Link>
 
@@ -124,7 +124,7 @@ export function Header() {
               }`}
               aria-label="Open menu"
             >
-              <Menu size={28} />
+              <Menu size={22} />
             </button>
           </nav>
         </div>
@@ -152,7 +152,7 @@ export function Header() {
               className="absolute top-8 right-8 text-white hover:scale-110 transition-transform duration-200"
               aria-label="Close menu"
             >
-              <X size={34} strokeWidth={2.5} />
+              <X size={22} strokeWidth={2.5} />
             </button>
 
             <div className="flex flex-col gap-6 text-lg text-white">

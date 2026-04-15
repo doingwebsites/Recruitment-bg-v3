@@ -19,7 +19,7 @@ const values = [
 
 export function About(): React.JSX.Element {
   return (
-    <section id="about" className="py-24 lg:py-32 mb-[200px]">
+    <section id="about" className="py-24 lg:py-32 lg:mb-[120px] md:mb-[50px] sm:md-[0px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
@@ -51,15 +51,12 @@ export function About(): React.JSX.Element {
                 return (
                   <div
                     key={index}
-                    className="flex flex-row items-center text-center"
+                    className={`flex flex-row items-center gap-2 ${value.title === "Relationships" ? "-ml-3" : ""}`}
                   >
-                    {/* Small Icon */}
-                    <div className="w-12 h-12  rounded-2xl  flex items-center justify-center">
+                    <div className="w-6 h-6 flex-shrink-0 flex items-center justify-center">
                       <IconComponent className="w-5 h-5 text-[#78B6D9]" />
-          
                     </div>
 
-                    {/* Title */}
                     <p className="text-sm font-medium text-black tracking-tight">
                       {value.title}
                     </p>
@@ -76,7 +73,7 @@ export function About(): React.JSX.Element {
               alt="Team collaborating to build exceptional tech teams"
               width={1400}
               height={800}
-              className="w-full h-auto object-cover"
+              className="w-full h-full object-cover rounded-2xl"
               priority
             />
           </div>

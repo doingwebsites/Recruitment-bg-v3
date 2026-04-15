@@ -23,8 +23,8 @@ export const trustMetrics = [
     description: "",
   },
   {
-    value: "94%",
-    label: "Retention Rate",
+    value: "12",
+    label: "Senior Tech Recruiters",
     description: "",
   },
   {
@@ -33,8 +33,13 @@ export const trustMetrics = [
     description: "",
   },
   {
-    value: "100%+",
+    value: "100%",
     label: "Recruiting all Tech Stacks",
+    description: "",
+  },
+   {
+    value: "1",
+    label: "Built-in House Smart.R ATS",
     description: "",
   },
 ]

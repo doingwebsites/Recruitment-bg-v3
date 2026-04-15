@@ -23,7 +23,7 @@ const whyChooseUs = [
 
 export function CompaniesSection() {
   return (
-    <section id="companies" className="py-20 lg:py-28 bg-transparent mb-[200px]">
+    <section id="companies" className="py-20 lg:py-28 bg-transparent lg:mb-[120px] md:mb-[50px] sm:md-[0px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-5xl mx-auto text-center mb-16">

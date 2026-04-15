@@ -43,7 +43,7 @@ const services: Service[] = [
 
 export function Services(): React.JSX.Element {
   return (
-    <section id="services" className="py-24 lg:py-32 mb-[200px]">
+    <section id="services" className="py-24 lg:py-32 lg:mb-[100px] md:mb-[50px] sm:md-[0px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-2xl mx-auto text-center mb-16 lg:mb-20">

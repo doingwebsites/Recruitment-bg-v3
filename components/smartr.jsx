@@ -2,15 +2,16 @@ import { Button } from "@/components/ui/button"
 import { Sparkles } from "lucide-react"
 
 const features = [
-    "You describe the person you need in plain words → smart.R finds the best matches",
-    "It understands skills, experience, and real-life context (not just keywords)",
-    "Faster shortlists, happier teams, less time wasted",
+    "You describe the person you need in plain words → smart.R finds the best matches from your talent pipeline",
+    "It understands skills, experience, and real-life context — not just keyword matching",
+    "Faster shortlists, happier teams, less time wasted on manual candidate tracking",
+    "Built-in client relationship tools so every hiring team stays in the loop",
     "Powered by smart.R AI",
 ]
 
 export function SmartRSection() {
     return (
-        <section id="smartr" className="py-24 md:py-32 px-6 mb-[200px]" >
+        <section id="smartr" className="py-24 md:py-32 px-6 lg:mb-[120px] md:mb-[50px] sm:md-[0px]" >
             <div className="max-w-4xl mx-auto text-center">
                 <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-8">
                     <Sparkles className="w-4 h-4 text-orange-500" />
@@ -28,7 +29,7 @@ export function SmartRSection() {
 
 
                 <p className="text-xl text-slate-600 leading-relaxed mb-5">
-                    15+ years of recruitment experience, now inside one friendly tool.
+                    15+ years of recruitment experience, now inside one friendly ATS & CRM tool.
                 </p>
 
                 <ul className="space-y-4 text-left max-w-2xl mx-auto mb-12 mt-10">

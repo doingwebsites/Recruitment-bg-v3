@@ -3,7 +3,7 @@ import { Check } from "lucide-react"
 
 const reasons = [
   {
-    title: "14+ Years Experience",
+    title: "15+ Years Experience",
     description: "Deep expertise in IT recruitment and the Bulgarian tech market.",
   },
   {
@@ -30,7 +30,7 @@ const reasons = [
 
 export function WhyChooseUs(): React.JSX.Element {
   return (
-    <section id="why-us" className="py-24 lg:py-32 mb-[200px]">
+    <section id="why-us" className="py-24 lg:py-32 lg:mb-[120px] md:mb-[50px] sm:md-[0px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         
         {/* Centered Header */}
