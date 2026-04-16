@@ -1,6 +1,6 @@
 "use client";
 
-import { User, Target, HeartHandshake } from "lucide-react";
+import { User, Target, HeartHandshake, Upload } from "lucide-react";
 
 const candidateSteps = [
     {
@@ -22,7 +22,7 @@ const candidateSteps = [
 
 export function CandidatesSection() {
     return (
-        <section className=" px-4 py-24 md:px-8 md:py-32 lg:mb-[120px] md:mb-[50px] sm:md-[0px]">
+        <section className="px-4 py-24 md:px-8 md:py-32 lg:mb-[120px] md:mb-[50px]">
             <div className="mx-auto max-w-6xl">
 
                 {/* Header */}
@@ -45,15 +45,14 @@ export function CandidatesSection() {
                         <div className="absolute top-5 left-0 right-0 h-px bg-[#78B6D9]/30" />
                         <div className="relative flex justify-between px-8">
                             <span className="px-5 text-3xl font-bold text-[#78B6D9] ml-[-20px]">01</span>
-                            <span className=" px-5 text-3xl font-bold text-[#78B6D9] ">02</span>
-                            <span className=" px-5 text-3xl font-bold text-[#78B6D9] mr-[-20px]">03</span>
+                            <span className="px-5 text-3xl font-bold text-[#78B6D9]">02</span>
+                            <span className="px-5 text-3xl font-bold text-[#78B6D9] mr-[-20px]">03</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Steps */}
                 <div className="relative">
-
                     {/* Mobile: Vertical Line */}
                     <div className="md:hidden absolute left-[20px] top-12 bottom-6 w-px bg-[#78B6D9]/30" />
 
@@ -65,21 +64,13 @@ export function CandidatesSection() {
                             >
                                 {/* Mobile Number + Icon Row */}
                                 <div className="flex items-center gap-6 md:hidden">
-                                    {/* Number for Mobile */}
-                                    <div className="w-10 h-10 flex-shrink-0  flex items-center justify-center z-10">
+                                    <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center z-10">
                                         <span className="text-xl font-bold text-[#78B6D9]">0{index + 1}</span>
                                     </div>
-
-                                    {/* Small Icon */}
-                                    {/* <div className="w-5 h-5 flex items-center justify-center bg-white rounded-2xl shadow-sm border border-slate-100">
-                                        <div className="text-[#085689]">
-                                            {step.icon}
-                                        </div>
-                                    </div> */}
                                 </div>
 
-                                {/* Desktop Icon Only */}
-                                <div className="hidden md:block w-10 h-12 mx-auto flex items-center justify-center  rounded-2xl  mb-6">
+                                {/* Desktop Icon */}
+                                <div className="hidden md:block w-10 h-12 mx-auto flex items-center justify-center rounded-2xl mb-6">
                                     <div className="text-[#085689]">
                                         {step.icon}
                                     </div>
@@ -94,11 +85,19 @@ export function CandidatesSection() {
                                         {step.description}
                                     </p>
                                 </div>
-
-                                {/* Desktop Numbers (already handled above the grid) */}
                             </div>
                         ))}
                     </div>
+                </div>
+
+                {/* Upload CV Button - Added at the bottom */}
+                <div className="flex justify-center mt-20">
+                    <button 
+                        className="group bg-[#085689] hover:bg-[#78B6D9] text-white px-5 py-3 rounded-xl font-semibold text-md flex items-center gap-3 transition-all duration-300 shadow-lg shadow-[#085689]/20 hover:shadow-xl hover:-translate-y-0.5"
+                    >
+                        <Upload className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                        Upload Your CV
+                    </button>
                 </div>
 
             </div>
