@@ -96,7 +96,7 @@ export function CandidatesSection() {
                         className="group bg-[#085689] hover:bg-[#78B6D9] text-white px-5 py-3 rounded-xl font-semibold text-md flex items-center gap-3 transition-all duration-300 shadow-lg shadow-[#085689]/20 hover:shadow-xl hover:-translate-y-0.5"
                     >
                         <Upload className="w-6 h-6 group-hover:rotate-12 transition-transform" />
-                        Upload Your CV
+                        Send Us Your CV
                     </button>
                 </div>
 

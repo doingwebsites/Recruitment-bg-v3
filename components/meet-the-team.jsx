@@ -1,28 +1,135 @@
 "use client";
 
 import Image from "next/image";
-import { 
-  RiMessage2Line, 
-  RiUserSearchLine, 
-  RiReplyLine, 
-  RiCloseCircleLine 
+import { useState } from "react";
+import {
+  RiMessage2Line,
+  RiUserSearchLine,
+  RiReplyLine,
+  RiArrowLeftSLine,
+  RiArrowRightSLine,
+  RiLinkedinBoxFill
 } from "react-icons/ri";
 
 export function MeetTheTeam() {
+  const [scrollContainer, setScrollContainer] = useState(null);
+
+  const scroll = (direction) => {
+    if (!scrollContainer) return;
+
+    const isMobile = window.innerWidth < 640;
+    const scrollAmount = isMobile
+      ? scrollContainer.offsetWidth
+      : scrollContainer.offsetWidth / 3;
+
+    scrollContainer.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
+  const teamMembers = [
+    {
+      name: "Svetlana Manolova",
+      image: "/members/ai/svetlana.jpg",
+      linkedin: "https://bg.linkedin.com/in/svetlana-manolova-62051b197",
+      quote: "Connecting people with opportunities through strong coffee, sharper questions, and quiet belief in the perfect match.",
+    },
+    {
+      name: "Diana Tosheva",
+      image: "/members/diana.png",
+      linkedin: "https://bg.linkedin.com/in/diana-tosheva-037144208",
+      quote: "Ten years taught me: listen harder than you talk. The best hires always follow.",
+    },
+    {
+      name: "Mirela Nikolova",
+      image: "",
+      linkedin: "https://bg.linkedin.com/in/mirela-nikolova",
+      quote: "Building bridges between talent and companies — fuelled by hope that culture actually fits.",
+    },
+    {
+      name: "Tania Danilenko",
+      image: "/members/ai/tania.png",
+      linkedin: "https://bg.linkedin.com/in/tanya-danilenko-8221391a9",
+      quote: "I hunt for that rare spark where a developer's weird side project meets a company's secret ambition.",
+    },
+    {
+      name: "Andrea Miteva",
+      image: "/members/ai/andrea.jpg",
+      linkedin: "https://bg.linkedin.com/in/andrea-miteva-70b7ab366?trk=people-guest_people_search-card",
+      quote: "Turning 'maybe' into 'absolutely' is my favourite kind of magic.",
+    },
+    {
+      name: "Valentina Nikolova",
+      image: "/members/valentina.png",
+      linkedin: "https://bg.linkedin.com/in/valentina-nikolova-958563215",
+      quote: "Connecting people with opportunities through caffeine, curiosity, and a soft spot for East Asian culture and art.",
+    },
+    {
+      name: "Gabriela Vejinova",
+      image: "/members/ai/gabi2.png",
+      linkedin: "https://www.linkedin.com/in/gabriela-vezhinova-80886a371/",
+      quote: "I match people to roles the way a good editor finds the perfect sentence: invisible until it clicks.",
+    },
+    {
+      name: "Irina Tojeva",
+      image: "",
+      linkedin: "https://linkedin.com/in/irina-tojeva",
+      quote: "Passion for knowledge, passion for better recruitment, and turning 'the why's' into 'you belong here.",
+    },
+    {
+      name: "Silvia Markova",
+      image: "/members/ai/silvia.png",
+      linkedin: "https://bg.linkedin.com/in/silvia-markova-b98470233",
+      quote: "I refuse to rush the fit. The right person always arrives exactly when the team needs it.",
+    },
+    {
+      name: "Gabriela Ignatova",
+      image: "/members/ai/gabi1.png",
+      linkedin: "https://linkedin.com/in/gabriela-ignatova",
+      quote: "Strategic enough to spot talent, human enough to notice when someone's eyes light up.",
+    },
+    {
+      name: "Yulia Rapinchuk",
+      image: "/members/ai/yulia.jpg",
+      linkedin: "https://linkedin.com/in/yulia-rapinchuk",
+      quote: "I build relationships strong enough to survive both market crashes and group-chat memes.",
+    },
+    {
+      name: "Veselin Raykov",
+      image: "/members/ai/veselin.jpg",
+      linkedin: "https://bg.linkedin.com/in/veselinraykovhr",
+      quote: "After countless meetings, one thing hasn't changed—I still believe in people. Results, no excuses.",
+    },
+    {
+      name: "Victor Stefanov",
+      image: "/members/victor.png",
+      linkedin: "https://linkedin.com/in/victor-stefanov",
+      quote: "Great companies hire talent. Smart ones build relationships first.",
+    },
+    {
+      name: "Kalin Motovilkov",
+      image: "/members/ai/kalin.jpg",
+      linkedin: "https://bg.linkedin.com/in/kalin-motovilkov",
+      quote: "Serious about results, slightly amused by how perfect they are.",
+    },
+  ];
+
   return (
-    <section className="py-20 lg:py-28 lg:mb-[120px] md:mb-[50px]">
+    <section id="about" className="py-20 lg:py-28 lg:mb-[120px] md:mb-[50px] sm:md-[0px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center mb-16">
           <p className="text-md font-medium text-[#085689] uppercase tracking-wider mb-4">
             Meet the Team
           </p>
-          
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black mb-6 text-balance">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black mb-6">
             Nice to meet you
           </h2>
         </div>
 
-        <div className="relative shadow-2xl rounded-xl overflow-hidden">
+        {/* Hero Team Image */}
+        <div className="relative shadow-2xl rounded-3xl overflow-hidden mb-20">
           <Image
             src="/uploaded/team2.jpg"
             alt="Our Team"
@@ -31,13 +138,11 @@ export function MeetTheTeam() {
             className="w-full h-auto object-cover"
             priority
           />
-          
           <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
         </div>
 
         {/* Values Section */}
-        <div className="mt-30 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10 max-w-4xl mx-auto">
-          {/* Left Column */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10 max-w-4xl mx-auto mb-24 mt-[100px]">
           <div className="space-y-8">
             <div className="flex items-start gap-4">
               <div className="text-[#085689] mt-1">
@@ -48,7 +153,6 @@ export function MeetTheTeam() {
                 <p className="text-gray-600">Just straight talk with honesty</p>
               </div>
             </div>
-
             <div className="flex items-start gap-4">
               <div className="text-[#085689] mt-1">
                 <RiReplyLine size={32} />
@@ -60,18 +164,16 @@ export function MeetTheTeam() {
             </div>
           </div>
 
-          {/* Right Column */}
           <div className="space-y-8">
             <div className="flex items-start gap-4">
               <div className="text-[#085689] mt-1">
-                <RiMessage2Line size={32} />   {/* You can change this icon if you prefer */}
+                <RiMessage2Line size={32} />
               </div>
               <div>
                 <h3 className="font-semibold text-xl mb-1">Real Conversations</h3>
                 <p className="text-gray-600">We say no to templates</p>
               </div>
             </div>
-
             <div className="flex items-start gap-4">
               <div className="text-[#085689] mt-1">
                 <RiUserSearchLine size={32} />
@@ -80,6 +182,72 @@ export function MeetTheTeam() {
                 <h3 className="font-semibold text-xl mb-1">No position</h3>
                 <p className="text-gray-600">We will let you know. But still will be looking.</p>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Team Carousel */}
+        <div>
+          <div
+            ref={setScrollContainer}
+            className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {teamMembers.map((member, index) => (
+              <div
+                key={index}
+                className="w-full flex-shrink-0 snap-start group sm:w-[33.333%] sm:px-3 mt-[50px]"
+              >
+                <div className="rounded-3xl overflow-hidden transition-all duration-500 h-full flex flex-col items-center">
+
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="relative w-[200px] h-[200px]">
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        className="object-cover border-4 border-[#085689] rounded-[100%] duration-700 group-hover:scale-101 transition-all"
+                      />
+                    </div>
+
+                    {member.linkedin && (
+                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#085689] hover:text-[#78B6D9] transition-colors duration-200" aria-label={`${member.name} LinkedIn`}>
+                        <RiLinkedinBoxFill className="mt-6" size={36} />
+                      </a>
+                    )}
+                  </div>
+
+                  <div className="p-7 flex-1 flex flex-col items-center relative">
+                    <div className="mb-5 text-center">
+                      <p className="font-semibold text-lg text-gray-900">{member.name}</p>
+                      <p className="text-[#085689] text-sm mt-1">{member.title}</p>
+                    </div>
+                    <div className="text-gray-600 text-[15px] leading-relaxed italic text-center flex-1">
+                      "{member.quote}"
+                    </div>
+                    <span className="absolute bottom-2 right-4 text-[80px] leading-none text-gray-200 select-none pointer-events-none font-serif">"</span>
+                  </div>
+
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-center mb-8">
+            <div className="flex gap-3 mt-[50px]">
+              <button
+                onClick={() => scroll("left")}
+                className="w-11 h-11 rounded-full border text-white border-gray-300 flex items-center bg-[#085689] justify-center hover:bg-[#78B6D9] active:bg-gray-200 transition-all"
+                aria-label="Scroll left"
+              >
+                <RiArrowLeftSLine size={24} />
+              </button>
+              <button
+                onClick={() => scroll("right")}
+                className="w-11 h-11 rounded-full border text-white border-gray-300 flex items-center bg-[#085689] justify-center hover:bg-[#78B6D9] active:bg-gray-200 transition-all"
+                aria-label="Scroll right"
+              >
+                <RiArrowRightSLine size={24} />
+              </button>
             </div>
           </div>
         </div>

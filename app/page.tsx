@@ -15,6 +15,7 @@ import { CandidatesSection } from "@/components/candidates-section"
 import { WhyChooseUs } from "@/components/why-choose-us"
 import { JobsSection } from "@/components/jobs"
 import { Testimonials } from "@/components/testimonials"
+import { FAQSection } from "@/components/faq-section"
 import { CallToAction } from "@/components/call-to-action"
 import { Footer } from "@/components/footer"
 import { SocialSidebar } from "@/components/social-sidebar"
@@ -76,10 +77,13 @@ export default function Home(): React.JSX.Element {
         <JobsSection />
       </ScrollReveal>
 
-       <ScrollReveal>
+      <ScrollReveal>
         <Testimonials />
       </ScrollReveal>
 
+      <ScrollReveal>
+        <FAQSection />
+      </ScrollReveal>
 
       <ScrollReveal>
         <MeetTheTeam />
@@ -90,7 +94,7 @@ export default function Home(): React.JSX.Element {
       </ScrollReveal>
 
 
-        <Footer />
+      <Footer />
 
     </main>
   )

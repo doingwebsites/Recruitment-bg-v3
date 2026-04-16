@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { MapPin, Clock, Filter, X, Search } from "lucide-react";
+import { MapPin, Filter, X, Search } from "lucide-react";
 
 const sampleJobs = [
   {
@@ -12,7 +12,7 @@ const sampleJobs = [
     type: "Hybrid",
     contract: "regular",
     logo: "/company-logos/logo1.svg",
-    techStack: ["React", "Next.js", "TypeScript", "Tailwind"],
+    techStack: ["React", "Next.js", "TypeScript"],
     posted: "15 april.",
   },
   {
@@ -149,7 +149,7 @@ export function JobsSection() {
           </p>
         </div>
 
-        {/* Search Bar - Centered on md & lg, Full width on mobile */}
+        {/* Search Bar */}
         <div className="flex justify-center mb-10">
           <div className="w-full md:w-[50%] lg:w-[50%]">
             <div className="relative">
@@ -288,31 +288,40 @@ export function JobsSection() {
                           <MapPin className="w-4 h-4" />
                           {job.location}
                         </div>
-                        <div className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-medium">
+                        <div className="px-3 py-1 bg-[#085689] text-white rounded-full text-xs font-medium">
                           {job.type}
                         </div>
-                        <div className="px-3 py-1 bg-[#78B6D9] text-white rounded-full text-xs font-medium capitalize">
+                        <div className="px-3 py-1 bg-[#085689] text-white rounded-full text-xs font-medium capitalize">
                           {job.contract}
                         </div>
                       </div>
                     </div>
                   </div>
 
+                  {/* Tech Stack + View Position Button */}
                   <div className="flex items-end justify-between mt-auto pt-6">
                     <div className="flex flex-wrap gap-2">
-                      {job.techStack.map((tech, i) => (
-                        <span
-                          key={i}
-                          className="text-xs bg-slate-100 text-slate-600 px-3 py-1.5 rounded-xl"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                      {job.techStack
+                        .filter((tech) => tech.trim() !== "")
+                        .map((tech, i) => (
+                          <span
+                            key={i}
+                            className="text-xs bg-slate-100 text-slate-600 px-3 py-1.5 rounded-xl"
+                          >
+                            {tech}
+                          </span>
+                        ))}
                     </div>
-                    <div className="flex items-center gap-1.5 text-slate-400 text-xs shrink-0 ml-4">
-                      <Clock className="w-3.5 h-3.5" />
-                      {job.posted}
-                    </div>
+
+                   <button
+  onClick={() => {
+    console.log(`Viewing position: ${job.title} (ID: ${job.id})`);
+    // TODO: Add navigation or modal logic here
+  }}
+  className="bg-[#78B6D9] hover:bg-[#0a6a9e] text-white px-4 py-2 rounded-2xl text-xs font-medium transition-all active:scale-95 flex items-center justify-center flex-shrink-0"
+>
+  View Position
+</button>
                   </div>
                 </div>
               ))}

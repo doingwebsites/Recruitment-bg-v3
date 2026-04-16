@@ -1,11 +1,7 @@
 "use client";
 
 import { CheckCircle } from "lucide-react";
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-
-
-
+import { Button } from "@/components/ui/button";
 
 const hireWithClarity = [
   "Precise hiring needs assessment",
@@ -22,8 +18,31 @@ const whyChooseUs = [
 ];
 
 export function CompaniesSection() {
+  const scrollToSection = (href) => {
+    const id = href.replace("#", "");
+    const element = document.getElementById(id);
+
+    if (element) {
+      const headerOffset = 100;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+
+      // Highlight effect
+      element.style.transition = "all 0.4s ease";
+      element.style.boxShadow = "0 0 0 4px rgba(8, 86, 137, 0.15)";
+      setTimeout(() => {
+        element.style.boxShadow = "none";
+      }, 1200);
+    }
+  };
+
   return (
-    <section id="companies" className="py-20 lg:py-28 bg-transparent lg:mb-[120px] md:mb-[50px] sm:md-[0px]">
+    <section id="companies" className="py-20 lg:py-28 bg-transparent lg:mb-[120px] md:mb-[50px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-5xl mx-auto text-center mb-16">
@@ -44,8 +63,27 @@ export function CompaniesSection() {
 
         {/* Two Column Content */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-          {/* Left Column - Hire with Clarity */}
-          <div>
+            <div>
+            <div className="inline-flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-full mb-8">
+              <span className="font-semibold">Why Companies Choose Us</span>
+            </div>
+
+            <ul className="space-y-6">
+              {whyChooseUs.map((item, index) => (
+                <li key={index} className="flex gap-4">
+                  <div className="mt-1 w-6 h-6 rounded-full bg-slate-900 flex-shrink-0 flex items-center justify-center">
+                    <CheckCircle className="w-4 h-4 text-white" />
+                  </div>
+                  <p className="text-lg text-slate-700 leading-relaxed">{item}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* Left Column */}
+         
+
+          {/* Right Column */}
+           <div>
             <div className="inline-flex items-center gap-2 bg-[#085689]/10 text-[#085689] px-4 py-2 rounded-full mb-8">
               <CheckCircle className="w-5 h-5" />
               <span className="font-semibold">Hire with Clarity</span>
@@ -57,48 +95,22 @@ export function CompaniesSection() {
                   <div className="mt-1 w-6 h-6 rounded-full bg-[#085689]/10 flex-shrink-0 flex items-center justify-center">
                     <CheckCircle className="w-4 h-4 text-[#085689]" />
                   </div>
-                  <p className="text-lg text-slate-700 leading-relaxed">
-                    {item}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Right Column - Why Companies Choose Us */}
-          <div>
-            <div className="inline-flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-full mb-8">
-              <span className="font-semibold">Why Companies Choose Us</span>
-            </div>
-
-            <ul className="space-y-6">
-              {whyChooseUs.map((item, index) => (
-                <li key={index} className="flex gap-4">
-                  <div className="mt-1 w-6 h-6 rounded-full bg-slate-900 flex-shrink-0 flex items-center justify-center">
-                    <CheckCircle className="w-4 h-4 text-white" />
-                  </div>
-                  <p className="text-lg text-slate-700 leading-relaxed">
-                    {item}
-                  </p>
+                  <p className="text-lg text-slate-700 leading-relaxed">{item}</p>
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* Centered Button */}
+        {/* Button */}
         <div className="flex justify-center mt-16">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-
-
-            <Button className="bg-[#085689]  text-white hover:bg-[#78B6D9] hover:text-black rounded-lg px-8 py-6 text-base">
-              Talk to us
-            </Button>
-          </div>
+          <Button
+            onClick={() => scrollToSection("#contact")}
+            className="bg-[#085689] text-white hover:bg-[#78B6D9] hover:text-black rounded-lg px-8 py-6 text-base"
+          >
+            Talk to us
+          </Button>
         </div>
-
-        {/* Closing Statement */}
-
       </div>
     </section>
   );

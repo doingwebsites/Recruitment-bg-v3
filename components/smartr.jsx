@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Sparkles } from "lucide-react"
 
@@ -10,6 +12,30 @@ const features = [
 ]
 
 export function SmartRSection() {
+
+    const scrollToSection = (href) => {
+        const id = href.replace("#", "");
+        const element = document.getElementById(id);
+
+        if (element) {
+            const headerOffset = 100;
+            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+            const offsetPosition = elementPosition - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth",
+            });
+
+            // Highlight effect
+            element.style.transition = "all 0.4s ease";
+            element.style.boxShadow = "0 0 0 4px rgba(8, 86, 137, 0.15)";
+            setTimeout(() => {
+                element.style.boxShadow = "none";
+            }, 1200);
+        }
+    };
+
     return (
         <section id="smartr" className="py-24 md:py-32 px-6 lg:mb-[120px] md:mb-[50px] sm:md-[0px]" >
             <div className="max-w-4xl mx-auto text-center">
@@ -52,6 +78,7 @@ export function SmartRSection() {
                     </a>
 
                     <Button
+                        onClick={() => scrollToSection("#contact")}
                         variant="outline"
                         className="bg-trasparent text-black hover:bg-[#78B6D9] hover:text-white rounded-lg px-8 py-6 text-base"
                     >

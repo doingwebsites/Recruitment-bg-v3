@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Quote } from "lucide-react";
+import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
   {
@@ -106,13 +106,26 @@ export function Testimonials() {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [isAnimating, setIsAnimating] = React.useState(false);
 
+  const goToNext = () => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      setIsAnimating(false);
+    }, 300);
+  };
+
+  const goToPrev = () => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+      setIsAnimating(false);
+    }, 300);
+  };
+
+  // Auto-slide every 5 seconds
   React.useEffect(() => {
     const timer = setInterval(() => {
-      setIsAnimating(true);
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-        setIsAnimating(false);
-      }, 300);
+      goToNext();
     }, 5000);
 
     return () => clearInterval(timer);
@@ -125,12 +138,12 @@ export function Testimonials() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 lg:mb-[120px] md:mb-[50px] sm:md-[0px]">
+    <section className="py-20 lg:py-28 lg:mb-[120px] md:mb-[50px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center mb-16">
-         <p className="text-sm font-medium text-[#085689] uppercase tracking-widest mb-3">
+          <p className="text-sm font-medium text-[#085689] uppercase tracking-widest mb-3">
             Testimonials
           </p>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-black mb-6">
@@ -141,8 +154,21 @@ export function Testimonials() {
           </p>
         </div>
 
-        {/* Testimonials Container - Fixed Height to prevent jumping */}
+        {/* Testimonials Container with Arrows */}
         <div className="relative min-h-[520px] md:min-h-[480px]">
+          
+          {/* Left Arrow */}
+       <button
+            onClick={goToPrev}
+            className="hidden md:flex absolute  lg:-left-20 top-42 -translate-y-1/2 z-20 
+                       bg-[#085689] hover:bg-[#78B6D9] p-4 rounded-full shadow-lg hover:shadow-xl 
+                       transition-all duration-200 items-center justify-center"
+            aria-label="Previous testimonial"
+          >
+            <ChevronLeft className="w-6 h-6 text-white" />
+          </button>
+
+          {/* Testimonials Grid */}
           <div
             className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500 ${
               isAnimating ? "opacity-0 scale-[0.98]" : "opacity-100 scale-100"
@@ -175,6 +201,17 @@ export function Testimonials() {
               </div>
             ))}
           </div>
+
+          {/* Right Arrow */}
+        <button
+            onClick={goToNext}
+            className="hidden md:flex absolute -right-6 lg:-right-20 top-42 -translate-y-1/2 z-20 
+                       bg-[#085689] hover:bg-[#78B6D9] p-4 rounded-full shadow-lg hover:shadow-xl 
+                       transition-all duration-200 items-center justify-center"
+            aria-label="Next testimonial"
+          >
+            <ChevronRight className="w-6 h-6 text-white" />
+          </button>
         </div>
 
         {/* Navigation Dots */}

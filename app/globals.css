@@ -129,3 +129,16 @@
 body {
   font-family: "Poppins", sans-serif;
 }
+
+
+@keyframes borderCycle {
+  0%   { border-color: #085689; }
+  25%  { border-color: #78B6D9; }
+  50%  { border-color: #085689; }
+  75%  { border-color: #78B6D9; }
+  100% { border-color: #085689; }
+}
+
+.group:hover img {
+  animation: borderCycle 2s linear infinite;
+}
