@@ -74,7 +74,7 @@ export function Footer(): React.JSX.Element {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#f3f3f3] text-black border-t border-white/10">
+    <footer className="bg-[#f3f3f3] text-black border-t border-white/10 mt-[-150px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand / Logo */}

@@ -3,6 +3,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { MapPin, Filter, X, Search, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
 
 // ─── Job details ────────────────────────────────────────────────────────────
 const jobDetails = {
@@ -78,6 +80,9 @@ const sampleJobs = [
 
 // ─── Modal component — rendered via Portal directly on document.body ─────────
 function JobModal({ job, onClose }) {
+
+
+
   const details = jobDetails[job.id];
 
   React.useEffect(() => {
@@ -86,25 +91,25 @@ function JobModal({ job, onClose }) {
     return () => window.removeEventListener("keydown", handler);
   }, [onClose]);
 
-React.useEffect(() => {
-  const scrollY = window.scrollY;
+  React.useEffect(() => {
+    const scrollY = window.scrollY;
 
-  document.body.style.position = "fixed";
-  document.body.style.top = `-${scrollY}px`;
-  document.body.style.left = "0";
-  document.body.style.right = "0";
-  document.body.style.width = "100%";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
 
-  return () => {
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.left = "";
-    document.body.style.right = "";
-    document.body.style.width = "";
+    return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
 
-    window.scrollTo(0, scrollY);
-  };
-}, []);
+      window.scrollTo(0, scrollY);
+    };
+  }, []);
 
   const BulletList = ({ items, color }) => (
     <ul className="space-y-2 mt-2">
@@ -138,7 +143,6 @@ React.useEffect(() => {
         @media (min-width: 640px) {
           .modal-panel {
             align-self: center !important;
-            border-radius: 1.5rem !important;
             max-width: 72rem !important;
             height: 90dvh !important;
           }
@@ -150,13 +154,12 @@ React.useEffect(() => {
         style={{
           height: "100dvh",
           maxHeight: "100dvh",
-          borderRadius: "1.5rem 1.5rem 0 0",
           animation: "slideUp 0.35s cubic-bezier(0.32, 0.72, 0, 1) forwards",
           overflow: "hidden",
         }}
       >
         {/* Header — pinned, never scrolls */}
-        <div className="bg-[#085689] p-6 text-white relative shrink-0" style={{ borderRadius: "1.5rem 1.5rem 0 0" }}>
+        <div className="bg-[#085689] p-6 text-white relative shrink-0" >
           <button
             onClick={onClose}
             className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center transition-colors"
@@ -190,7 +193,7 @@ React.useEffect(() => {
 
         {/* Body — only this part scrolls */}
         <div className="flex-1 overflow-y-auto p-5 space-y-4" style={{ WebkitOverflowScrolling: "touch" }}>
-          <div className="bg-slate-50 rounded-2xl p-4">
+          <div className="bg-slate-50  p-4">
             <p className="text-xs font-semibold text-[#085689] uppercase tracking-widest mb-2">Position Overview</p>
             <p className="text-sm text-slate-700 leading-relaxed">{details.overview}</p>
           </div>
@@ -215,8 +218,15 @@ React.useEffect(() => {
               <p className="text-xs font-semibold text-[#f59e0b] uppercase tracking-widest mb-1">What We Offer</p>
               <BulletList items={details.offers} color="#f59e0b" />
             </div>
+
           </div>
+          <p className="text-md text-slate-600 leading-relaxed text-center max-w-5xl mx-auto mt-5 mb-5">
+            By applying for this position, you agree that your personal data will be processed according to our privacy policy.
+          </p>
         </div>
+
+
+
 
         {/* Footer — pinned at bottom, never scrolls */}
         <div className="shrink-0 px-5 py-4 border-t border-slate-100">
@@ -231,7 +241,7 @@ React.useEffect(() => {
     </div>
   );
 
-  // ← THE KEY FIX: Portal renders the modal on document.body,
+
   // completely outside the page scroll container
   return ReactDOM.createPortal(modalContent, document.body);
 }

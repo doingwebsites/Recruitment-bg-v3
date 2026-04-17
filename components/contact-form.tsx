@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Upload } from "lucide-react";
 
 import { contactFormSchema, type ContactFormData } from "@/lib/schemas";
 
@@ -38,12 +38,13 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const [interest, setInterest] = React.useState<Interest>("hiring");
 
+  // File Upload State
+  const [file, setFile] = React.useState<File | null>(null);
+
   // CAPTCHA State
-  const [captchaAnswer, setCaptchaAnswer] = React.useState("");
   const [userCaptchaInput, setUserCaptchaInput] = React.useState("");
   const [captchaError, setCaptchaError] = React.useState("");
 
-  // Hardcoded CAPTCHA (simple math question)
   const captchaQuestion = "8 + 5?";
   const correctAnswer = "13";
 
@@ -58,10 +59,15 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
     },
   });
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
+
   async function onSubmit(data: ContactFormData) {
     setCaptchaError("");
 
-    // Validate CAPTCHA
     if (userCaptchaInput.trim() !== correctAnswer) {
       setCaptchaError("Incorrect answer. Please try again.");
       return;
@@ -70,21 +76,36 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
     setIsSubmitting(true);
 
     try {
+      // Use FormData to handle file uploads
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      formData.append("title", data.title);
+      formData.append("message", data.message);
+      formData.append("mode", mode);
+      
+      if (mode === "company") {
+        formData.append("interest", interest);
+      }
+      
+      if (mode === "candidate" && file) {
+        formData.append("cv", file);
+      }
+
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...data,
-          mode,
-          interest: mode === "company" ? interest : undefined,
-        }),
+        // Note: Headers are omitted because the browser automatically 
+        // sets multipart/form-data and the boundary
+        body: formData,
       });
 
       if (!response.ok) throw new Error("Failed to send message");
 
       setIsSubmitted(true);
       form.reset();
-      setUserCaptchaInput(""); // Reset captcha input
+      setUserCaptchaInput("");
+      setFile(null);
     } catch (error) {
       console.error(error);
       alert("Failed to send message. Please try again.");
@@ -114,6 +135,7 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
             setIsSubmitted(false);
             setUserCaptchaInput("");
             setCaptchaError("");
+            setFile(null);
           }}
         >
           Send another message
@@ -125,10 +147,6 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-
-        {/* ... existing fields (Name, Email, Phone, Title, Company Interest, Message) ... */}
-        {/* Keep all your existing FormFields unchanged */}
-
         {/* Name + Email */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <FormField
@@ -216,6 +234,7 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
           name="message"
           render={({ field }) => (
             <FormItem>
+              <FormMessage />
               <FormLabel>Your Message</FormLabel>
               <FormControl>
                 <Textarea
@@ -224,7 +243,6 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -256,6 +274,32 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
             Please solve this simple math question to prove you're not a robot.
           </p>
         </div>
+
+        {/* === CV UPLOAD SECTION (CANDIDATE ONLY) === */}
+        {mode === "candidate" && (
+          <div className="pt-6 border-t border-slate-200">
+            <FormLabel className="text-sm font-medium text-slate-700 mb-2 block">
+              Upload your CV
+            </FormLabel>
+            <div className="relative">
+              <Input
+                type="file"
+                accept=".pdf,.doc,.docx"
+                onChange={handleFileChange}
+                className="h-12 file:bg-[#085689] file:text-white file:border-0 file:rounded-md file:px-4 file:mr-4 file:h-full cursor-pointer"
+              />
+            </div>
+            {file && (
+              <div className="mt-3 flex items-center text-sm text-green-600 font-medium">
+                <CheckCircle className="w-4 h-4 mr-2" />
+                <span>{file.name} uploaded successfully</span>
+              </div>
+            )}
+            <p className="text-xs text-slate-500 mt-2">
+              Accepted formats: PDF, DOCX. Max size: 5MB.
+            </p>
+          </div>
+        )}
 
         <p className="text-center text-sm text-slate-500 mt-6">
           We typically reply within 24 hours during business days

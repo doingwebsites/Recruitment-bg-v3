@@ -268,7 +268,7 @@ export function Services() {
                     expanded ? "max-h-[1200px] opacity-100 mb-6" : "max-h-0 opacity-0"
                   }`}
                 >
-                  <div className="bg-white border border-[#78B6D9]/30 rounded-xl p-6 shadow-sm">
+                  <div className="bg-[#f5f5f5] border border-[#78B6D9]/30 rounded-xl p-6 shadow-sm">
                     <div className="flex justify-between items-start mb-6">
                       <div>
                         <h3 className="text-2xl font-bold text-black">{service.title}</h3>
@@ -354,7 +354,7 @@ export function Services() {
         </div>
       </div>
 
-      {/* ==================== ORIGINAL DESKTOP SLIDING PANEL (UNTOUCHED) ==================== */}
+      {/* ==================== Desktop SLIDING PANEL ==================== */}
       <div
         className={`fixed inset-0 z-50 flex items-start justify-end transition-all duration-300 ${selectedService ? "visible" : "invisible"}`}
       >
@@ -369,7 +369,6 @@ export function Services() {
         >
           {selectedService && (
             <div className="p-6 md:p-8">
-              {/* ... Your exact original panel content ... */}
               <button
                 onClick={closePanel}
                 className="absolute top-6 right-6 p-2 rounded-full hover:bg-gray-100 transition-colors"

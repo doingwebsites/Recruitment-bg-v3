@@ -1,17 +1,41 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   RiArrowLeftSLine,
   RiArrowRightSLine,
   RiLinkedinBoxFill
 } from "react-icons/ri";
-import { TbPointFilled  } from "react-icons/tb";
-
+import { TbPointFilled } from "react-icons/tb";
 
 export function MeetTheTeam() {
   const [scrollContainer, setScrollContainer] = useState(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const updateScrollState = () => {
+    if (!scrollContainer) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
+
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+  };
+
+  useEffect(() => {
+    if (!scrollContainer) return;
+
+    updateScrollState();
+
+    scrollContainer.addEventListener("scroll", updateScrollState);
+    window.addEventListener("resize", updateScrollState);
+
+    return () => {
+      scrollContainer.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, [scrollContainer]);
 
   const scroll = (direction) => {
     if (!scrollContainer) return;
@@ -48,7 +72,7 @@ export function MeetTheTeam() {
     },
     {
       name: "Mirela Nikolova",
-       image: "/members/ai/mirela.png",
+      image: "/members/ai/mirela.png",
       linkedin: "https://bg.linkedin.com/in/mirela-nikolova",
       quote: "I am fair by nature, lives in the nature.",
     },
@@ -82,7 +106,6 @@ export function MeetTheTeam() {
       linkedin: "https://bg.linkedin.com/in/valentina-nikolova-958563215",
       quote: "Connecting people with opportunities through caffeine, curiosity, and a soft spot for East Asian culture and art.",
     },
-
     {
       name: "Gabriela Ignatova",
       image: "/members/ai/gabi1.png",
@@ -101,28 +124,24 @@ export function MeetTheTeam() {
       linkedin: "https://bg.linkedin.com/in/kalin-motovilkov",
       quote: "Serious about results, slightly amused by how perfect they are.",
     },
-       {
+    {
       name: "Tania Danilenko",
       image: "/members/ai/tania.png",
       linkedin: "https://bg.linkedin.com/in/tanya-danilenko-8221391a9",
       quote: "Consistent, reliable, and kind. I value respectful people.",
     },
-
-
     {
       name: "Yulia Rapinchuk",
       image: "/members/ai/yulia.jpg",
       linkedin: "https://linkedin.com/in/yulia-rapinchuk",
       quote: "I build relationships strong enough to survive both market crashes and group-chat memes.",
     },
-
-
   ];
 
   return (
     <section id="about" className="py-20 lg:py-28 lg:mb-[120px] md:mb-[50px] sm:md-[0px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Header */}
+
         <div className="text-center mb-16">
           <p className="text-md font-medium text-[#085689] uppercase tracking-wider mb-4">
             Meet the Team
@@ -132,7 +151,6 @@ export function MeetTheTeam() {
           </h2>
         </div>
 
-        {/* Hero Team Image */}
         <div className="relative shadow-2xl rounded-3xl overflow-hidden mb-20">
           <Image
             src="/uploaded/team2.jpg"
@@ -145,21 +163,21 @@ export function MeetTheTeam() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
         </div>
 
-        {/* Values Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10 max-w-4xl mx-auto mb-24 mt-[100px]">
-          <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10 max-w-4xl mx-auto mb-20">
+          <div className="space-y-6">
             <div className="flex items-start gap-4">
               <div className="text-[#085689] mt-1">
-                <TbPointFilled  size={32} />
+                <TbPointFilled size={32} />
               </div>
               <div>
                 <h3 className="font-semibold text-xl mb-1">No BS</h3>
                 <p className="text-gray-600">Just straight talk with honesty</p>
               </div>
             </div>
+
             <div className="flex items-start gap-4">
               <div className="text-[#085689] mt-1">
-                <TbPointFilled  size={32} />
+                <TbPointFilled size={32} />
               </div>
               <div>
                 <h3 className="font-semibold text-xl mb-1">Ghosting</h3>
@@ -168,19 +186,20 @@ export function MeetTheTeam() {
             </div>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-6 mt-[-15px]">
             <div className="flex items-start gap-4">
               <div className="text-[#085689] mt-1">
-                <TbPointFilled  size={32} />
+                <TbPointFilled size={32} />
               </div>
               <div>
                 <h3 className="font-semibold text-xl mb-1">Real Conversations</h3>
                 <p className="text-gray-600">We say no to templates</p>
               </div>
             </div>
+
             <div className="flex items-start gap-4">
               <div className="text-[#085689] mt-1">
-                <TbPointFilled  size={32} />
+                <TbPointFilled size={32} />
               </div>
               <div>
                 <h3 className="font-semibold text-xl mb-1">No position</h3>
@@ -194,14 +213,14 @@ export function MeetTheTeam() {
         <div>
           <div
             ref={setScrollContainer}
-            className="flex overflow-x-auto snap-x snap-mandatory  scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden mt-[-30px]"
           >
             {teamMembers.map((member, index) => (
               <div
                 key={index}
                 className="w-[80%] flex-shrink-0 snap-start group sm:w-[33.333%] sm:px-3 mt-[50px]"
               >
-                <div className="rounded-3xl overflow-hidden transition-all duration-500 h-full flex flex-col items-center">
+                <div className="rounded-3xl overflow-hidden flex flex-col items-center">
 
                   <div className="flex flex-col items-center gap-2">
                     <div className="relative w-[200px] h-[200px]">
@@ -209,26 +228,22 @@ export function MeetTheTeam() {
                         src={member.image}
                         alt={member.name}
                         fill
-                        className="object-cover border-4 border-[#085689] rounded-[100%] duration-700 group-hover:scale-101 transition-all"
+                        className="object-cover border-4 border-[#085689] rounded-full"
                       />
                     </div>
 
                     {member.linkedin && (
-                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#085689] hover:text-[#78B6D9] transition-colors duration-200" aria-label={`${member.name} LinkedIn`}>
+                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#085689] hover:text-[#78B6D9] transition-colors duration-200">
                         <RiLinkedinBoxFill className="mt-6" size={36} />
                       </a>
                     )}
                   </div>
 
-                  <div className="p-7 flex-1 flex flex-col items-center relative">
-                    <div className="mb-5 text-center">
-                      <p className="font-semibold text-lg text-gray-900">{member.name}</p>
-                      <p className="text-[#085689] text-sm mt-1">{member.title}</p>
-                    </div>
-                    <div className="text-gray-600 text-[15px] leading-relaxed italic text-center flex-1">
+                  <div className="p-7 flex-1 flex flex-col items-center">
+                    <p className="font-semibold text-lg text-gray-900">{member.name}</p>
+                    <div className="text-gray-600 text-[15px] italic text-center mt-4">
                       "{member.quote}"
                     </div>
-
                   </div>
 
                 </div>
@@ -236,24 +251,38 @@ export function MeetTheTeam() {
             ))}
           </div>
 
-          <div className="flex items-center justify-center mb-8">
-            <div className="flex gap-3 mt-[50px]">
-              <button
-                onClick={() => scroll("left")}
-                className="w-11 h-11 rounded-full border text-white border-gray-300 flex items-center bg-[#085689] justify-center hover:bg-[#78B6D9] active:bg-gray-200 transition-all"
-                aria-label="Scroll left"
-              >
-                <RiArrowLeftSLine size={24} />
-              </button>
-              <button
-                onClick={() => scroll("right")}
-                className="w-11 h-11 rounded-full border text-white border-gray-300 flex items-center bg-[#085689] justify-center hover:bg-[#78B6D9] active:bg-gray-200 transition-all"
-                aria-label="Scroll right"
-              >
-                <RiArrowRightSLine size={24} />
-              </button>
-            </div>
-          </div>
+          {/* Arrows */}
+        <div className="flex items-center justify-center mt-[-20px]">
+  <div className="flex gap-3 mt-[50px]">
+
+    {/* Left Arrow */}
+    <button
+      onClick={() => scroll("left")}
+      className={`w-11 h-11 rounded-full text-white bg-[#085689] flex items-center justify-center
+        transform transition-all duration-200 ease-out
+        ${canScrollLeft
+          ? "opacity-100 scale-100 translate-y-0"
+          : "opacity-0 scale-75 translate-y-2 pointer-events-none"
+        }`}
+    >
+      <RiArrowLeftSLine size={24} />
+    </button>
+
+    {/* Right Arrow */}
+    <button
+      onClick={() => scroll("right")}
+      className={`w-11 h-11 rounded-full text-white bg-[#085689] flex items-center justify-center
+        transform transition-all duration-200 ease-out
+        ${canScrollRight
+          ? "opacity-100 scale-100 translate-y-0"
+          : "opacity-0 scale-75 translate-y-2 pointer-events-none"
+        }`}
+    >
+      <RiArrowRightSLine size={24} />
+    </button>
+
+  </div>
+</div>
         </div>
       </div>
     </section>

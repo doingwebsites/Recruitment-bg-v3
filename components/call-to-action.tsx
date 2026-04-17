@@ -25,10 +25,9 @@ export function CallToAction(): React.JSX.Element {
           </p>
         </div>
 
-        {/* Tab Buttons - Company LEFT | Candidate RIGHT */}
+        {/* Tab Buttons */}
         <div className="flex justify-center mb-10">
           <div className="inline-flex rounded-full p-1 bg-slate-100">
-            {/* Company - Left (now default active) */}
             <Button
               variant={activeTab === "company" ? "default" : "ghost"}
               onClick={() => setActiveTab("company")}
