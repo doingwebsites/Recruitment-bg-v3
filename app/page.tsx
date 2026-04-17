@@ -77,9 +77,9 @@ export default function Home(): React.JSX.Element {
         <JobsSection />
       </ScrollReveal>
 
-      <ScrollReveal>
+      {/* <ScrollReveal>
         <Testimonials />
-      </ScrollReveal>
+      </ScrollReveal> */}
 
       <ScrollReveal>
         <FAQSection />

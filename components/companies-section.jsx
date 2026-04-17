@@ -32,12 +32,7 @@ export function CompaniesSection() {
         behavior: "smooth",
       });
 
-      // Highlight effect
-      element.style.transition = "all 0.4s ease";
-      element.style.boxShadow = "0 0 0 4px rgba(8, 86, 137, 0.15)";
-      setTimeout(() => {
-        element.style.boxShadow = "none";
-      }, 1200);
+    
     }
   };
 
@@ -79,10 +74,9 @@ export function CompaniesSection() {
               ))}
             </ul>
           </div>
-          {/* Left Column */}
+         
          
 
-          {/* Right Column */}
            <div>
             <div className="inline-flex items-center gap-2 bg-[#085689]/10 text-[#085689] px-4 py-2 rounded-full mb-8">
               <CheckCircle className="w-5 h-5" />
@@ -102,7 +96,6 @@ export function CompaniesSection() {
           </div>
         </div>
 
-        {/* Button */}
         <div className="flex justify-center mt-16">
           <Button
             onClick={() => scrollToSection("#contact")}

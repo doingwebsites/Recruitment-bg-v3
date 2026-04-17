@@ -1,6 +1,8 @@
 "use client";
 
 import { User, Target, HeartHandshake, Upload } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
 
 const candidateSteps = [
     {
@@ -21,8 +23,32 @@ const candidateSteps = [
 ];
 
 export function CandidatesSection() {
+
+    const scrollToSection = (href) => {
+        const id = href.replace("#", "");
+        const element = document.getElementById(id);
+
+        if (element) {
+            const headerOffset = 100;
+            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+            const offsetPosition = elementPosition - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth",
+            });
+
+            element.style.transition = "all 0.4s ease";
+            element.style.boxShadow = "0 0 0 4px rgba(8, 86, 137, 0.15)";
+            setTimeout(() => {
+                element.style.boxShadow = "none";
+            }, 1200);
+        }
+    };
+
+
     return (
-        <section className="px-4 py-24 md:px-8 md:py-32 lg:mb-[120px] md:mb-[50px]">
+        <section id="candidates" className="px-4 py-24 md:px-8 md:py-32 lg:mb-[120px] md:mb-[50px]">
             <div className="mx-auto max-w-6xl">
 
                 {/* Header */}
@@ -34,7 +60,7 @@ export function CandidatesSection() {
                         Your Next Career Move
                     </h2>
                     <p className="text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
-                        We take the time to understand your goals, skills, and aspirations to connect you with 
+                        We take the time to understand your goals, skills, and aspirations to connect you with
                         opportunities that genuinely feel right.
                     </p>
                 </div>
@@ -58,8 +84,8 @@ export function CandidatesSection() {
 
                     <div className="space-y-16 md:space-y-0 md:grid md:grid-cols-3 md:gap-12">
                         {candidateSteps.map((step, index) => (
-                            <div 
-                                key={index} 
+                            <div
+                                key={index}
                                 className="flex md:flex-col items-start md:items-center gap-6 md:gap-0 text-center relative"
                             >
                                 {/* Mobile Number + Icon Row */}
@@ -90,14 +116,15 @@ export function CandidatesSection() {
                     </div>
                 </div>
 
-                {/* Upload CV Button - Added at the bottom */}
                 <div className="flex justify-center mt-20">
-                    <button 
-                        className="group bg-[#085689] hover:bg-[#78B6D9] text-white px-5 py-3 rounded-xl font-semibold text-md flex items-center gap-3 transition-all duration-300 shadow-lg shadow-[#085689]/20 hover:shadow-xl hover:-translate-y-0.5"
+                   
+                    <Button
+                        onClick={() => scrollToSection("#contact")}
+                        className="group bg-[#085689] h-12 hover:bg-[#78B6D9] text-white px-5 py-3 rounded-xl font-semibold text-md flex items-center gap-3 transition-all duration-300 shadow-lg shadow-[#085689]/20 hover:shadow-xl hover:-translate-y-0.5"
                     >
-                        <Upload className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                        <Upload className="w-12 h-12 group-hover:rotate-12 transition-transform" />
                         Send Us Your CV
-                    </button>
+                    </Button>
                 </div>
 
             </div>

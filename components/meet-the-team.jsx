@@ -3,13 +3,12 @@
 import Image from "next/image";
 import { useState } from "react";
 import {
-  RiMessage2Line,
-  RiUserSearchLine,
-  RiReplyLine,
   RiArrowLeftSLine,
   RiArrowRightSLine,
   RiLinkedinBoxFill
 } from "react-icons/ri";
+import { TbPointFilled  } from "react-icons/tb";
+
 
 export function MeetTheTeam() {
   const [scrollContainer, setScrollContainer] = useState(null);
@@ -30,76 +29,40 @@ export function MeetTheTeam() {
 
   const teamMembers = [
     {
-      name: "Svetlana Manolova",
-      image: "/members/ai/svetlana.jpg",
-      linkedin: "https://bg.linkedin.com/in/svetlana-manolova-62051b197",
-      quote: "Connecting people with opportunities through strong coffee, sharper questions, and quiet belief in the perfect match.",
+      name: "Veselin Raykov",
+      image: "/members/ai/veselin.jpg",
+      linkedin: "https://bg.linkedin.com/in/veselinraykovhr",
+      quote: "After countless meetings, one thing hasn't changed—I still believe in people. Results, no excuses.",
     },
     {
       name: "Diana Tosheva",
       image: "/members/diana.png",
       linkedin: "https://bg.linkedin.com/in/diana-tosheva-037144208",
-      quote: "Ten years taught me: listen harder than you talk. The best hires always follow.",
+      quote: "Competative by nature, inspired by results",
+    },
+    {
+      name: "Svetlana Manolova",
+      image: "/members/ai/svetlana1.png",
+      linkedin: "https://bg.linkedin.com/in/svetlana-manolova-62051b197",
+      quote: "Loves to sing, travel and be with the family. Believes in people genuinely until proven otherwise",
     },
     {
       name: "Mirela Nikolova",
-      image: "",
+       image: "/members/ai/mirela.png",
       linkedin: "https://bg.linkedin.com/in/mirela-nikolova",
       quote: "Building bridges between talent and companies — fuelled by hope that culture actually fits.",
     },
     {
-      name: "Tania Danilenko",
-      image: "/members/ai/tania.png",
-      linkedin: "https://bg.linkedin.com/in/tanya-danilenko-8221391a9",
-      quote: "I hunt for that rare spark where a developer's weird side project meets a company's secret ambition.",
-    },
-    {
-      name: "Andrea Miteva",
-      image: "/members/ai/andrea.jpg",
-      linkedin: "https://bg.linkedin.com/in/andrea-miteva-70b7ab366?trk=people-guest_people_search-card",
-      quote: "Turning 'maybe' into 'absolutely' is my favourite kind of magic.",
-    },
-    {
-      name: "Valentina Nikolova",
-      image: "/members/valentina.png",
-      linkedin: "https://bg.linkedin.com/in/valentina-nikolova-958563215",
-      quote: "Connecting people with opportunities through caffeine, curiosity, and a soft spot for East Asian culture and art.",
-    },
-    {
-      name: "Gabriela Vejinova",
-      image: "/members/ai/gabi2.png",
-      linkedin: "https://www.linkedin.com/in/gabriela-vezhinova-80886a371/",
-      quote: "I match people to roles the way a good editor finds the perfect sentence: invisible until it clicks.",
-    },
-    {
-      name: "Irina Tojeva",
-      image: "",
-      linkedin: "https://linkedin.com/in/irina-tojeva",
-      quote: "Passion for knowledge, passion for better recruitment, and turning 'the why's' into 'you belong here.",
-    },
-    {
       name: "Silvia Markova",
-      image: "/members/ai/silvia.png",
+      image: "/members/ai/silvia1.png",
       linkedin: "https://bg.linkedin.com/in/silvia-markova-b98470233",
       quote: "I refuse to rush the fit. The right person always arrives exactly when the team needs it.",
     },
     {
-      name: "Gabriela Ignatova",
-      image: "/members/ai/gabi1.png",
-      linkedin: "https://linkedin.com/in/gabriela-ignatova",
-      quote: "Strategic enough to spot talent, human enough to notice when someone's eyes light up.",
-    },
-    {
-      name: "Yulia Rapinchuk",
-      image: "/members/ai/yulia.jpg",
-      linkedin: "https://linkedin.com/in/yulia-rapinchuk",
-      quote: "I build relationships strong enough to survive both market crashes and group-chat memes.",
-    },
-    {
-      name: "Veselin Raykov",
-      image: "/members/ai/veselin.jpg",
-      linkedin: "https://bg.linkedin.com/in/veselinraykovhr",
-      quote: "After countless meetings, one thing hasn't changed—I still believe in people. Results, no excuses.",
+      name: "Irina Tojeva",
+      image: "/members/ai/irina.png",
+      linkedin: "https://linkedin.com/in/irina-tojeva",
+      quote: "Passion for knowledge, passion for better recruitment, and turning 'the why's' into 'you belong here.",
     },
     {
       name: "Victor Stefanov",
@@ -108,11 +71,52 @@ export function MeetTheTeam() {
       quote: "Great companies hire talent. Smart ones build relationships first.",
     },
     {
+      name: "Gabriela Vejinova",
+      image: "/members/ai/gabi2.png",
+      linkedin: "https://www.linkedin.com/in/gabriela-vezhinova-80886a371/",
+      quote: "I match people to roles the way a good editor finds the perfect sentence: invisible until it clicks.",
+    },
+    {
+      name: "Valentina Nikolova",
+      image: "/members/valentina.png",
+      linkedin: "https://bg.linkedin.com/in/valentina-nikolova-958563215",
+      quote: "Connecting people with opportunities through caffeine, curiosity, and a soft spot for East Asian culture and art.",
+    },
+
+    {
+      name: "Gabriela Ignatova",
+      image: "/members/ai/gabi1.png",
+      linkedin: "https://linkedin.com/in/gabriela-ignatova",
+      quote: "Strategic enough to spot talent, human enough to notice when someone's eyes light up.",
+    },
+    {
+      name: "Andrea Miteva",
+      image: "/members/ai/andrea.jpg",
+      linkedin: "https://bg.linkedin.com/in/andrea-miteva-70b7ab366?trk=people-guest_people_search-card",
+      quote: "Matching talented professionals with the right opportunities, with a people-first focus.",
+    },
+    {
       name: "Kalin Motovilkov",
       image: "/members/ai/kalin.jpg",
       linkedin: "https://bg.linkedin.com/in/kalin-motovilkov",
       quote: "Serious about results, slightly amused by how perfect they are.",
     },
+
+    {
+      name: "Yulia Rapinchuk",
+      image: "/members/ai/yulia.jpg",
+      linkedin: "https://linkedin.com/in/yulia-rapinchuk",
+      quote: "I build relationships strong enough to survive both market crashes and group-chat memes.",
+    },
+
+
+    // {
+    //   name: "Tania Danilenko",
+    //   image: "/members/ai/tania.png",
+    //   linkedin: "https://bg.linkedin.com/in/tanya-danilenko-8221391a9",
+    //   quote: "I hunt for that rare spark where a developer's weird side project meets a company's secret ambition.",
+    // },
+
   ];
 
   return (
@@ -146,7 +150,7 @@ export function MeetTheTeam() {
           <div className="space-y-8">
             <div className="flex items-start gap-4">
               <div className="text-[#085689] mt-1">
-                <RiMessage2Line size={32} />
+                <TbPointFilled  size={32} />
               </div>
               <div>
                 <h3 className="font-semibold text-xl mb-1">No BS</h3>
@@ -155,7 +159,7 @@ export function MeetTheTeam() {
             </div>
             <div className="flex items-start gap-4">
               <div className="text-[#085689] mt-1">
-                <RiReplyLine size={32} />
+                <TbPointFilled  size={32} />
               </div>
               <div>
                 <h3 className="font-semibold text-xl mb-1">Ghosting</h3>
@@ -167,7 +171,7 @@ export function MeetTheTeam() {
           <div className="space-y-8">
             <div className="flex items-start gap-4">
               <div className="text-[#085689] mt-1">
-                <RiMessage2Line size={32} />
+                <TbPointFilled  size={32} />
               </div>
               <div>
                 <h3 className="font-semibold text-xl mb-1">Real Conversations</h3>
@@ -176,7 +180,7 @@ export function MeetTheTeam() {
             </div>
             <div className="flex items-start gap-4">
               <div className="text-[#085689] mt-1">
-                <RiUserSearchLine size={32} />
+                <TbPointFilled  size={32} />
               </div>
               <div>
                 <h3 className="font-semibold text-xl mb-1">No position</h3>
@@ -224,7 +228,7 @@ export function MeetTheTeam() {
                     <div className="text-gray-600 text-[15px] leading-relaxed italic text-center flex-1">
                       "{member.quote}"
                     </div>
-                    <span className="absolute bottom-2 right-4 text-[80px] leading-none text-gray-200 select-none pointer-events-none font-serif">"</span>
+
                   </div>
 
                 </div>

@@ -9,7 +9,7 @@ const technologies = [
     "Python",
     ".NET",
     "C++",
-    "Golang",
+    "Data",
     "PHP",
     "iOS",
     "Android",
@@ -20,36 +20,36 @@ const technologies = [
 
 const categories = [
     {
-        title: "Software Development",
-        techs: ["React", "Angular", "Vue", ".NET", "Java", "TypeScript", "JavaScript", "REST APIs", "GraphQL", "Express"],
+        title: "Software Engineers & Developers",
+        techs: ["React", "Angular", "Vue", ".Node.js", "Express", "Spring Boot", ".NET Core", "Django", "Ruby on Rails", "Laravel"],
     },
     {
-        title: "DevOps & Infrastructure",
+        title: "Devops, cloud & platform engineers.",
         techs: ["Docker", "Kubernetes", "AWS", "Azure", "CI/CD", "Terraform", "GitHub Actions"],
     },
     {
-        title: "QA & Test Automation",
-        techs: ["Selenium", "Cypress", "Jest", "Playwright", "API Testing", "Test Automation", "TestNG"],
+        title: "QA, Аutomation & Security",
+        techs: ["Test Automation", "Manual Testing", "Security Engineers", "Security Analysts", "DevSecOps"],
     },
     {
         title: "Data Engineering & BI",
         techs: ["Hadoop", "Spark", "Tableau", "Power BI", "SQL", "ETL Pipelines", "Snowflake"],
     },
     {
-        title: "Data Science & Analytics",
-        techs: ["Python", "Machine Learning", "TensorFlow", "PyTorch", "Pandas", "NLP"],
+        title: "AI / ML",
+        techs: ["AI Engineers", "Machine Learning Engineers", "Data Scientists", "Python", "TensorFlow", "PyTorch"],
     },
     {
         title: "UI/UX & Product Design",
         techs: ["Figma", "Sketch", "Adobe XD", "InVision", "Design Systems", "Prototyping"],
     },
     {
-        title: "CRM & ERP Systems",
-        techs: ["Salesforce", "SAP", "Microsoft Dynamics", "Business Process Automation"],
+        title: "Mobile Development",
+        techs: ["IOS", "Android", "Swift", "Kotlin", "React Native", "Flutter"],
     },
     {
-        title: "Tech Leadership",
-        techs: ["Agile", "Scrum", "Kanban", "Team Management", "Stakeholder Management", "Roadmapping"],
+        title: "Engineering Leadership & Management Roles",
+        techs: ["CTO", "VP of Engineering", "Engineering Managers", "Tech Leads", "Delivery Managers"],
     },
 ];
 
@@ -71,7 +71,8 @@ export function SpecializedRecruitment() {
 
                     <p className="text-xl text-slate-600 leading-relaxed">
                         Our team of industry-specialized recruiters brings deep expertise to
-                        your talent search.          </p>
+                        your talent search.
+                    </p>
                 </div>
 
                 {/* Tech Stack Pills */}
@@ -118,13 +119,7 @@ export function SpecializedRecruitment() {
                     ))}
                 </div>
 
-                {/* Bottom Trust Line */}
-                {/* <div className="mt-16 text-center">
-                    <p className="text-sm text-slate-500">
-                        Trusted by leading tech companies to find exceptional talent across
-                        every domain
-                    </p>
-                </div> */}
+               
             </div>
         </section>
     );

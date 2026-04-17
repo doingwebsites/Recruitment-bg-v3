@@ -19,17 +19,7 @@ export default function DynamicBackground() {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
       
-      {/* Ambient Layer 1 */}
-      <div className="absolute inset-1 animate-ambient" />
-
-      <div 
-        className="absolute inset-0 animate-ambient" 
-        style={{ 
-          animationDuration: '32s', 
-          animationDirection: 'reverse',
-          opacity: 0.1 
-        }}
-      />
+    
 
       {/* Mouse Follow Glow */}
       <div

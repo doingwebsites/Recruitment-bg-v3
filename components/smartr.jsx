@@ -50,7 +50,7 @@ export function SmartRSection() {
 
 
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black mb-6 text-balance">
-                    Smart.R — our intelligent <span className="text-[#085689]">HR</span> system
+                    Smart.R — our intelligent <span className="text-[#085689]">HR ATS</span> system
                 </h2>
 
 

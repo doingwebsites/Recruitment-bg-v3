@@ -14,14 +14,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
 import { CheckCircle } from "lucide-react";
-
-import { Turnstile } from "@marsidev/react-turnstile";
 
 import { contactFormSchema, type ContactFormData } from "@/lib/schemas";
 
 type Mode = "candidate" | "company";
+type Interest = "hiring" | "demo";
 
 interface ContactFormProps {
   mode?: Mode;
@@ -30,9 +36,16 @@ interface ContactFormProps {
 export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX.Element {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [isSubmitted, setIsSubmitted] = React.useState(false);
-  const [turnstileToken, setTurnstileToken] = React.useState<string>("");
-  const [turnstileError, setTurnstileError] = React.useState(false);
-  const [turnstileReady, setTurnstileReady] = React.useState(false);
+  const [interest, setInterest] = React.useState<Interest>("hiring");
+
+  // CAPTCHA State
+  const [captchaAnswer, setCaptchaAnswer] = React.useState("");
+  const [userCaptchaInput, setUserCaptchaInput] = React.useState("");
+  const [captchaError, setCaptchaError] = React.useState("");
+
+  // Hardcoded CAPTCHA (simple math question)
+  const captchaQuestion = "8 + 5?";
+  const correctAnswer = "13";
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -46,13 +59,15 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
   });
 
   async function onSubmit(data: ContactFormData) {
-    if (!turnstileToken) {
-      alert("Please wait for the security check to complete.");
+    setCaptchaError("");
+
+    // Validate CAPTCHA
+    if (userCaptchaInput.trim() !== correctAnswer) {
+      setCaptchaError("Incorrect answer. Please try again.");
       return;
     }
 
     setIsSubmitting(true);
-    setTurnstileError(false);
 
     try {
       const response = await fetch("/api/contact", {
@@ -61,18 +76,15 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
         body: JSON.stringify({
           ...data,
           mode,
-          turnstileToken,
+          interest: mode === "company" ? interest : undefined,
         }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || "Failed to send message");
-      }
+      if (!response.ok) throw new Error("Failed to send message");
 
       setIsSubmitted(true);
       form.reset();
-      setTurnstileToken("");
+      setUserCaptchaInput(""); // Reset captcha input
     } catch (error) {
       console.error(error);
       alert("Failed to send message. Please try again.");
@@ -81,21 +93,11 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
     }
   }
 
-  const handleTurnstileSuccess = (token: string) => {
-    setTurnstileToken(token);
-    setTurnstileError(false);
-    setTurnstileReady(true);
-  };
-
-  const handleTurnstileError = () => {
-    setTurnstileError(true);
-    setTurnstileToken("");
-    setTurnstileReady(false);
-  };
-
-  const handleTurnstileExpire = () => {
-    setTurnstileToken("");
-  };
+  const messagePlaceholder = mode === "candidate"
+    ? "Tell us about your career goals and what you're looking for..."
+    : interest === "hiring"
+      ? "Tell us about your hiring needs, positions, number of roles, budget range, timeline..."
+      : "I'd like to schedule a Smart.r ATS/CRM demonstration...";
 
   if (isSubmitted) {
     return (
@@ -110,8 +112,8 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
           className="mt-6"
           onClick={() => {
             setIsSubmitted(false);
-            setTurnstileToken("");
-            setTurnstileError(false);
+            setUserCaptchaInput("");
+            setCaptchaError("");
           }}
         >
           Send another message
@@ -123,7 +125,11 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        {/* Your existing form fields remain exactly the same */}
+
+        {/* ... existing fields (Name, Email, Phone, Title, Company Interest, Message) ... */}
+        {/* Keep all your existing FormFields unchanged */}
+
+        {/* Name + Email */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <FormField
             control={form.control}
@@ -132,10 +138,7 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
               <FormItem>
                 <FormLabel>{mode === "company" ? "Company Name" : "Full Name"}</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder={mode === "company" ? "Company Name" : "John Doe"}
-                    {...field}
-                  />
+                  <Input placeholder={mode === "company" ? "Company Name" : "John Doe"} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -157,6 +160,7 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
           />
         </div>
 
+        {/* Phone + Title */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <FormField
             control={form.control}
@@ -177,7 +181,7 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{mode === "company" ? "Title" : "Job Title / Position"}</FormLabel>
+                <FormLabel>Job Title / Position</FormLabel>
                 <FormControl>
                   <Input
                     placeholder={mode === "company" ? "Hiring Manager" : "Senior Frontend Developer"}
@@ -190,6 +194,23 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
           />
         </div>
 
+        {/* Company Interest Dropdown */}
+        {mode === "company" && (
+          <div>
+            <FormLabel>I'm interested in:</FormLabel>
+            <Select value={interest} onValueChange={(value: Interest) => setInterest(value)}>
+              <SelectTrigger className="h-12 w-full">
+                <SelectValue placeholder="Select an option" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="hiring">Hiring for my company</SelectItem>
+                <SelectItem value="demo">Smart.r ATS/CRM demonstration</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
+        {/* Message */}
         <FormField
           control={form.control}
           name="message"
@@ -198,11 +219,7 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
               <FormLabel>Your Message</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder={
-                    mode === "company"
-                      ? "Tell us about your hiring needs, positions, budget range..."
-                      : "Tell us about your career goals and what you're looking for..."
-                  }
+                  placeholder={messagePlaceholder}
                   className="min-h-[140px] resize-none"
                   {...field}
                 />
@@ -212,33 +229,43 @@ export function ContactForm({ mode = "candidate" }: ContactFormProps): React.JSX
           )}
         />
 
-        {/* Turnstile Widget */}
-        <div className="flex justify-center py-2">
-          <Turnstile
-            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-            onSuccess={handleTurnstileSuccess}
-            onError={handleTurnstileError}
-            onExpire={handleTurnstileExpire}
-            options={{
-              theme: "light",
-              size: "normal",
-              retry: "auto",           // Important for dev mode
-              retryInterval: 1000,
-            }}
-          />
+        {/* === CAPTCHA SECTION === */}
+        <div className="pt-4 border-t border-slate-200">
+          <FormLabel className="text-sm font-medium text-slate-700 mb-2 block">
+            Security Check
+          </FormLabel>
+          <div className="flex flex-col sm:flex-row gap-4 items-start">
+            <div className="bg-slate-100 border border-slate-300 rounded-xl px-5 py-3 text-lg font-mono tracking-wider flex-shrink-0">
+              {captchaQuestion}
+            </div>
+            
+            <div className="flex-1 w-full">
+              <Input
+                type="text"
+                placeholder="Enter answer here"
+                value={userCaptchaInput}
+                onChange={(e) => setUserCaptchaInput(e.target.value)}
+                className="h-12"
+              />
+              {captchaError && (
+                <p className="text-red-600 text-sm mt-1.5">{captchaError}</p>
+              )}
+            </div>
+          </div>
+          <p className="text-xs text-slate-500 mt-2">
+            Please solve this simple math question to prove you're not a robot.
+          </p>
         </div>
 
-        {turnstileError && (
-          <p className="text-center text-red-600 text-sm">
-            Security check failed. Please refresh the page and try again.
-          </p>
-        )}
+        <p className="text-center text-sm text-slate-500 mt-6">
+          We typically reply within 24 hours during business days
+        </p>
 
         <Button
           type="submit"
           size="lg"
           className="w-full bg-[#085689] hover:bg-[#0a6a9c]"
-          disabled={isSubmitting || !turnstileToken}
+          disabled={isSubmitting}
         >
           {isSubmitting ? (
             <>

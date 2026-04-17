@@ -5,7 +5,7 @@ import { ContactForm } from "@/components/contact-form";
 import { Button } from "@/components/ui/button";
 
 export function CallToAction(): React.JSX.Element {
-  const [activeTab, setActiveTab] = React.useState<"candidate" | "company">("candidate");
+  const [activeTab, setActiveTab] = React.useState<"candidate" | "company">("company");
 
   return (
     <section id="contact" className="py-24 lg:py-32 mb-[200px]">
@@ -28,7 +28,7 @@ export function CallToAction(): React.JSX.Element {
         {/* Tab Buttons - Company LEFT | Candidate RIGHT */}
         <div className="flex justify-center mb-10">
           <div className="inline-flex rounded-full p-1 bg-slate-100">
-            {/* Company - Left */}
+            {/* Company - Left (now default active) */}
             <Button
               variant={activeTab === "company" ? "default" : "ghost"}
               onClick={() => setActiveTab("company")}
@@ -62,10 +62,6 @@ export function CallToAction(): React.JSX.Element {
           </div>
         </div>
         
-
-        <p className="text-center text-sm text-slate-500 mt-10">
-          We typically reply within 24 hours during business days
-        </p>
       </div>
     </section>
   );

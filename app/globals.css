@@ -128,6 +128,17 @@
 
 body {
   font-family: "Poppins", sans-serif;
+
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body[data-scroll-locked] {
+  overflow: hidden !important;
+  overscroll-behavior: none;
 }
 
 

@@ -3,6 +3,8 @@
 import * as React from "react";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { X, Plus, Users, Briefcase, Clock, Globe, Search, UserCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
 
 interface Service {
   icon: React.ElementType;
@@ -18,7 +20,7 @@ interface Service {
 const services: Service[] = [
   {
     icon: Users,
-    title: "Permanent Recruitment",
+    title: "Permanent IT Recruitment",
     subtitle: "Building Teams That Last",
     intro: "",
     sections: [
@@ -70,7 +72,7 @@ const services: Service[] = [
   },
   {
     icon: Clock,
-    title: "Project-Based Recruitment",
+    title: "Project-Based IT Recruitment",
     subtitle: "Flexible Hiring for Immediate Needs",
     intro: "",
     sections: [
@@ -96,7 +98,7 @@ const services: Service[] = [
   },
   {
     icon: Globe,
-    title: "Remote Hiring",
+    title: "Remote IT Hiring & Global Talent",
     subtitle: "Build Strong Teams Without Location Limits",
     intro: "",
     sections: [
@@ -175,26 +177,49 @@ const services: Service[] = [
 ];
 
 export function Services() {
+
+  const scrollToSection = (href) => {
+    const id = href.replace("#", "");
+    const element = document.getElementById(id);
+
+    if (element) {
+      const headerOffset = 100;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+
+      element.style.transition = "all 0.4s ease";
+      element.style.boxShadow = "0 0 0 4px rgba(8, 86, 137, 0.15)";
+      setTimeout(() => {
+        element.style.boxShadow = "none";
+      }, 1200);
+    }
+  };
+
+
   const [selectedService, setSelectedService] = React.useState<Service | null>(null);
 
   const closePanel = () => setSelectedService(null);
 
   const isSelected = (service: Service) => selectedService?.title === service.title;
 
+
   return (
     <section id="services" className="py-24 lg:py-32 lg:mb-[100px] md:mb-[50px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Header - unchanged */}
         <div className="max-w-2xl mx-auto text-center mb-16 lg:mb-20">
           <p className="text-md font-medium text-[#085689] uppercase tracking-wider mb-4">
             Our Services
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black mb-6 text-balance">
-            What we do
+            Our IT Recruitment Services
           </h2>
         </div>
 
-        {/* Services Grid - unchanged */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service, index) => {
             const IconComponent = service.icon;
@@ -233,18 +258,24 @@ export function Services() {
             );
           })}
         </div>
+
+        {/* Header */}
+        <div className="text-center">
+          <p className="text-xl text-slate-600 leading-relaxed mt-[80px]">
+            We provide end-to-end IT recruitment services, helping companies hire top tech talent locally and globally.
+          </p>
+        </div>
+
       </div>
 
-      {/* Sliding Panel - Updated with Two-Column Layout */}
+      {/* Sliding Panel */}
       <div
-        className={`fixed inset-0 z-50 flex items-start justify-end transition-all duration-300 ${
-          selectedService ? "visible" : "invisible"
-        }`}
+        className={`fixed inset-0 z-50 flex items-start justify-end transition-all duration-300 ${selectedService ? "visible" : "invisible"
+          }`}
       >
         <div
-          className={`absolute inset-0 bg-[#ededed]/90 backdrop-blur-md transition-opacity duration-300 ${
-            selectedService ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 bg-[#ededed]/90 backdrop-blur-md transition-opacity duration-300 ${selectedService ? "opacity-100" : "opacity-0"
+            }`}
           onClick={closePanel}
         />
 
@@ -252,6 +283,7 @@ export function Services() {
           className={`relative h-full w-full md:w-[50%] bg-[#efeeef] shadow-xl transform transition-transform duration-500 ease-out overflow-y-auto
             ${selectedService ? "translate-x-0" : "translate-x-full"}`}
         >
+          {/* Sliding Panel Content */}
           {selectedService && (
             <div className="p-6 md:p-8">
               <button
@@ -285,8 +317,8 @@ export function Services() {
                     </h4>
                     <ul className="space-y-3">
                       {section.points.map((point, i) => (
-                        <li 
-                          key={i} 
+                        <li
+                          key={i}
                           className="flex items-start gap-3 text-[17px] leading-relaxed text-gray-600"
                         >
                           <span className="text-[#085689] text-xl leading-none mt-0.5 flex-shrink-0">•</span>
@@ -297,6 +329,57 @@ export function Services() {
                   </div>
                 ))}
               </div>
+
+              {/* Button below the grid */}
+              <div className="mt-12 flex flex-col sm:flex-row gap-4">
+
+                {/* Permanent Recruitment Button */}
+                {selectedService.title === "Permanent Recruitment" && (
+                  <Button
+                    onClick={() => scrollToSection("#companies")}
+                    className="w-full sm:w-auto px-8 py-3.5 text-base font-medium bg-[#085689] hover:bg-[#0a6a9c] text-white rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] flex items-center gap-2"
+                  >
+                    Learn more
+                    <Users className="w-4 h-4" /> {/* You can change icon if you prefer */}
+                  </Button>
+                )}
+
+                {/* For Candidates Button */}
+                {selectedService.title === "For Candidates" && (
+                  <Button
+                    onClick={() => scrollToSection("#jobs")}
+                    className="w-full sm:w-auto px-8 py-3.5 text-base font-medium bg-[#085689] hover:bg-[#0a6a9c] text-white rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] flex items-center gap-2"
+                  >
+                    See all Jobs
+                    <Search className="w-4 h-4" />
+                  </Button>
+                )}
+              </div>
+
+              {/* Executive Search & Headhunting Stats*/}
+              {selectedService.title === "Executive Search & Headhunting" && (
+                <div className="mt-16 border-t border-gray-200 mt-[-10px]">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {/* Stat 1 */}
+                    <div className="text-center">
+                      <div className="text-[2rem] font-bold leading-none text-[#085689]">25</div>
+                      <div className="mt-4 text-md font-medium text-gray-700">Senior Roles</div>
+                    </div>
+
+                    {/* Stat 2 */}
+                    <div className="text-center">
+                      <div className="text-[2rem] font-bold leading-none text-[#085689]">95%</div>
+                      <div className="mt-4 text-md font-medium text-gray-700">Offer Acceptance Rate</div>
+                    </div>
+
+                    {/* Stat 3 */}
+                    <div className="text-center">
+                      <div className="text-[2rem] font-bold leading-none text-[#085689]">6-15</div>
+                      <div className="mt-4 text-md font-medium text-gray-700">Days to Present Candidates</div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>

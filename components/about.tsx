@@ -24,10 +24,9 @@ export function About(): React.JSX.Element {
 
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-          {/* Left Column: Text + Small Values Row */}
+          {/* Left Column: */}
           <div className="space-y-10">
 
-            {/* About Text */}
             <div>
               <p className="text-md font-medium text-[#085689] uppercase tracking-wider mb-4">
                 About Us
@@ -44,7 +43,7 @@ export function About(): React.JSX.Element {
               </p>
             </div>
 
-            {/* Small Icons Row - Directly Below Description */}
+            {/* Small Icons Row - Below Description */}
             <div className="grid grid-cols-3 gap-6 md:gap-10">
               {values.map((value, index) => {
                 const IconComponent = value.icon;
@@ -66,7 +65,7 @@ export function About(): React.JSX.Element {
             </div>
           </div>
 
-          {/* Right Column: Image */}
+          {/* Right Column*/}
           <div className="relative w-full aspect-[16/10] lg:aspect-[4/3]  overflow-hidden">
             <Image
               src="/uploaded/team1.jpg"
