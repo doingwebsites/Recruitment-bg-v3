@@ -50,13 +50,13 @@ export function MeetTheTeam() {
       name: "Mirela Nikolova",
        image: "/members/ai/mirela.png",
       linkedin: "https://bg.linkedin.com/in/mirela-nikolova",
-      quote: "Building bridges between talent and companies — fuelled by hope that culture actually fits.",
+      quote: "I am fair by nature, lives in the nature.",
     },
     {
       name: "Silvia Markova",
       image: "/members/ai/silvia1.png",
       linkedin: "https://bg.linkedin.com/in/silvia-markova-b98470233",
-      quote: "I refuse to rush the fit. The right person always arrives exactly when the team needs it.",
+      quote: "Reliable person who recharges with books, hiking, coffee and successful hires.",
     },
     {
       name: "Irina Tojeva",
@@ -74,7 +74,7 @@ export function MeetTheTeam() {
       name: "Gabriela Vejinova",
       image: "/members/ai/gabi2.png",
       linkedin: "https://www.linkedin.com/in/gabriela-vezhinova-80886a371/",
-      quote: "I match people to roles the way a good editor finds the perfect sentence: invisible until it clicks.",
+      quote: "I love nature, my kinds and positive vibes. No excuses in work, no excuses in real life.",
     },
     {
       name: "Valentina Nikolova",
@@ -87,7 +87,7 @@ export function MeetTheTeam() {
       name: "Gabriela Ignatova",
       image: "/members/ai/gabi1.png",
       linkedin: "https://linkedin.com/in/gabriela-ignatova",
-      quote: "Strategic enough to spot talent, human enough to notice when someone's eyes light up.",
+      quote: "Not a corporate lady, just a human. Researcher, parent, village life, mountain lover.",
     },
     {
       name: "Andrea Miteva",
@@ -101,6 +101,13 @@ export function MeetTheTeam() {
       linkedin: "https://bg.linkedin.com/in/kalin-motovilkov",
       quote: "Serious about results, slightly amused by how perfect they are.",
     },
+       {
+      name: "Tania Danilenko",
+      image: "/members/ai/tania.png",
+      linkedin: "https://bg.linkedin.com/in/tanya-danilenko-8221391a9",
+      quote: "Consistent, reliable, and kind. I value respectful people.",
+    },
+
 
     {
       name: "Yulia Rapinchuk",
@@ -109,13 +116,6 @@ export function MeetTheTeam() {
       quote: "I build relationships strong enough to survive both market crashes and group-chat memes.",
     },
 
-
-    // {
-    //   name: "Tania Danilenko",
-    //   image: "/members/ai/tania.png",
-    //   linkedin: "https://bg.linkedin.com/in/tanya-danilenko-8221391a9",
-    //   quote: "I hunt for that rare spark where a developer's weird side project meets a company's secret ambition.",
-    // },
 
   ];
 
@@ -194,12 +194,12 @@ export function MeetTheTeam() {
         <div>
           <div
             ref={setScrollContainer}
-            className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            className="flex overflow-x-auto snap-x snap-mandatory  scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
             {teamMembers.map((member, index) => (
               <div
                 key={index}
-                className="w-full flex-shrink-0 snap-start group sm:w-[33.333%] sm:px-3 mt-[50px]"
+                className="w-[80%] flex-shrink-0 snap-start group sm:w-[33.333%] sm:px-3 mt-[50px]"
               >
                 <div className="rounded-3xl overflow-hidden transition-all duration-500 h-full flex flex-col items-center">
 

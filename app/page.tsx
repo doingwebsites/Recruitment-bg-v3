@@ -22,7 +22,6 @@ import { SocialSidebar } from "@/components/social-sidebar"
 import DynamicBackground from "@/components/dynamic-background";
 import { ScrollReveal } from "@/components/scroll-reveal";
 
-
 export default function Home(): React.JSX.Element {
   return (
     <main className="min-h-screen bg-background relative overflow-hidden">

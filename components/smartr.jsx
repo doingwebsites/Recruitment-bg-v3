@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button"
 import { Sparkles } from "lucide-react"
 
 const features = [
-    "You describe the person you need in plain words → smart.R finds the best matches from your talent pipeline",
-    "It understands skills, experience, and real-life context — not just keyword matching",
-    "Faster shortlists, happier teams, less time wasted on manual candidate tracking",
-    "Built-in client relationship tools so every hiring team stays in the loop",
-    "Powered by smart.R AI",
+    "Our recruiters understand your needs first - Smart.R helps them move faster and stay focused.",
+    "We take a human-first approach, enhanced by smart matching and structured candidate data across your talent pipeline.",
+    "Faster shortlists, streamlined communication, better conversations, and less time lost in manual admin work.",
+    "Clear collaboration between all stakeholders - HR managers, directors, recruiters, and hiring managers.",
+    "Built by real processes and recruiters. Used by recruiters.",
 ]
 
 export function SmartRSection() {
@@ -55,7 +55,7 @@ export function SmartRSection() {
 
 
                 <p className="text-xl text-slate-600 leading-relaxed mb-5">
-                    15+ years of recruitment experience, now inside one friendly ATS & CRM tool.
+                    15+ years of hands-on recruitment - now supported by our own ATS and recruitment CRM platform, built around how real hiring actually works.
                 </p>
 
                 <ul className="space-y-4 text-left max-w-2xl mx-auto mb-12 mt-10">
@@ -70,7 +70,15 @@ export function SmartRSection() {
                     ))}
                 </ul>
 
-                <div className="flex flex-wrap justify-center gap-4">
+
+                 <p className="text-xl text-slate-600 leading-relaxed mb-5">
+                    Smart.R is used internally as our applicant tracking system and recruitment software, helping us deliver better hiring results for our clients. 
+                </p>
+                 <p className="text-xl text-slate-600 leading-relaxed mb-5">
+                   It’s also available to HR teams who want to improve their own hiring processes.
+                </p>
+
+                <div className="flex flex-wrap justify-center gap-4 mt-12">
                     <a href="https://smartr-olive.vercel.app/" target="_blank" rel="noopener noreferrer">
                         <Button className="bg-[#085689] text-white hover:bg-[#78B6D9] hover:text-black rounded-lg px-8 py-6 text-base">
                             See smart.R in action
