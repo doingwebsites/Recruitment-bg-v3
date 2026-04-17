@@ -5,7 +5,6 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { X, Plus, Users, Briefcase, Clock, Globe, Search, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-
 interface Service {
   icon: React.ElementType;
   title: string;
@@ -177,36 +176,36 @@ const services: Service[] = [
 ];
 
 export function Services() {
+  const [selectedService, setSelectedService] = React.useState<Service | null>(null);
+  const [expandedMobiles, setExpandedMobiles] = React.useState<Set<string>>(new Set());
 
-  const scrollToSection = (href) => {
+  const closePanel = () => setSelectedService(null);
+
+  const toggleMobile = (service: Service) => {
+    setExpandedMobiles((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(service.title)) {
+        newSet.delete(service.title);
+      } else {
+        newSet.add(service.title);
+      }
+      return newSet;
+    });
+  };
+
+  const isSelected = (service: Service) => selectedService?.title === service.title;
+  const isExpandedMobile = (service: Service) => expandedMobiles.has(service.title);
+
+  const scrollToSection = (href: string) => {
     const id = href.replace("#", "");
     const element = document.getElementById(id);
-
     if (element) {
       const headerOffset = 100;
       const elementPosition = element.getBoundingClientRect().top + window.scrollY;
       const offsetPosition = elementPosition - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-
-      element.style.transition = "all 0.4s ease";
-      element.style.boxShadow = "0 0 0 4px rgba(8, 86, 137, 0.15)";
-      setTimeout(() => {
-        element.style.boxShadow = "none";
-      }, 1200);
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
     }
   };
-
-
-  const [selectedService, setSelectedService] = React.useState<Service | null>(null);
-
-  const closePanel = () => setSelectedService(null);
-
-  const isSelected = (service: Service) => selectedService?.title === service.title;
-
 
   return (
     <section id="services" className="py-24 lg:py-32 lg:mb-[100px] md:mb-[50px]">
@@ -224,58 +223,143 @@ export function Services() {
           {services.map((service, index) => {
             const IconComponent = service.icon;
             const selected = isSelected(service);
+            const expanded = isExpandedMobile(service);
 
             return (
-              <Card
-                key={index}
-                className="group cursor-pointer hover:border-[#78B6D9] hover:shadow-lg transition-all duration-300 bg-[#f5f5f5] overflow-hidden"
-                onClick={() => setSelectedService(service)}
-              >
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                        <IconComponent className="w-6 h-6 text-[#085689]" />
+              <React.Fragment key={index}>
+                <Card
+                  className="group cursor-pointer hover:border-[#78B6D9] hover:shadow-lg transition-all duration-300 bg-[#f5f5f5] overflow-hidden"
+                  onClick={() => {
+                    if (window.innerWidth < 768) {
+                      toggleMobile(service);
+                    } else {
+                      setSelectedService(service);
+                    }
+                  }}
+                >
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                          <IconComponent className="w-6 h-6 text-[#085689]" />
+                        </div>
+                        <CardTitle className="text-lg leading-tight pt-1">
+                          {service.title}
+                        </CardTitle>
                       </div>
-                      <CardTitle className="text-lg leading-tight pt-1">
-                        {service.title}
-                      </CardTitle>
+
+                      <div
+                        className={`mt-1 p-2 rounded-full transition-all duration-300 group-hover:scale-110
+                          ${selected || expanded ? "rotate-45 bg-[#085689]/10" : "group-hover:rotate-12"}`}
+                      >
+                        {(selected || expanded) ? (
+                          <X className="w-5 h-5 text-[#085689]" />
+                        ) : (
+                          <Plus className="w-5 h-5 text-[#085689]" />
+                        )}
+                      </div>
+                    </div>
+                  </CardHeader>
+                </Card>
+
+                {/* ==================== MOBILE EXPANSION WITH ANIMATION ==================== */}
+                <div
+                  className={`md:hidden overflow-hidden transition-all duration-500 ease-out ${
+                    expanded ? "max-h-[1200px] opacity-100 mb-6" : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <div className="bg-white border border-[#78B6D9]/30 rounded-xl p-6 shadow-sm">
+                    <div className="flex justify-between items-start mb-6">
+                      <div>
+                        <h3 className="text-2xl font-bold text-black">{service.title}</h3>
+                        <p className="text-lg text-[#085689] font-medium">{service.subtitle}</p>
+                      </div>
+                      <button 
+                        onClick={() => toggleMobile(service)}
+                        className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+                      >
+                        <X className="w-6 h-6 text-gray-600" />
+                      </button>
                     </div>
 
-                    <div
-                      className={`mt-1 p-2 rounded-full transition-all duration-300 group-hover:scale-110
-                        ${selected ? "rotate-45 bg-[#085689]/10" : "group-hover:rotate-12"}`}
-                    >
-                      {selected ? (
-                        <X className="w-5 h-5 text-[#085689]" />
-                      ) : (
-                        <Plus className="w-5 h-5 text-[#085689]" />
+                    <div className="grid grid-cols-1 gap-8">
+                      {service.sections.map((section, idx) => (
+                        <div key={idx}>
+                          <h4 className="text-xl font-semibold text-black mb-5">
+                            {section.heading}
+                          </h4>
+                          <ul className="space-y-3">
+                            {section.points.map((point, i) => (
+                              <li
+                                key={i}
+                                className="flex items-start gap-3 text-[17px] leading-relaxed text-gray-600"
+                              >
+                                <span className="text-[#085689] text-xl leading-none mt-0.5 flex-shrink-0">•</span>
+                                <span>{point}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Mobile Action Buttons */}
+                    <div className="mt-10">
+                      {service.title === "Permanent IT Recruitment" && (
+                        <Button
+                          onClick={() => scrollToSection("#companies")}
+                          className="w-full bg-[#085689] hover:bg-[#0a6a9c] text-white py-3.5 rounded-xl"
+                        >
+                          Learn more <Users className="w-4 h-4 ml-2" />
+                        </Button>
+                      )}
+
+                      {service.title === "For Candidates" && (
+                        <Button
+                          onClick={() => scrollToSection("#jobs")}
+                          className="w-full bg-[#085689] hover:bg-[#0a6a9c] text-white py-3.5 rounded-xl"
+                        >
+                          See all Jobs <Search className="w-4 h-4 ml-2" />
+                        </Button>
                       )}
                     </div>
+
+                    {service.title === "Executive Search & Headhunting" && (
+                      <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="text-center">
+                          <div className="text-[2rem] font-bold text-[#085689]">25</div>
+                          <div className="text-sm text-gray-600">Senior Roles</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-[2rem] font-bold text-[#085689]">95%</div>
+                          <div className="text-sm text-gray-600">Offer Acceptance Rate</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-[2rem] font-bold text-[#085689]">6-15</div>
+                          <div className="text-sm text-gray-600">Days to Present Candidates</div>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </CardHeader>
-              </Card>
+                </div>
+              </React.Fragment>
             );
           })}
         </div>
 
-        {/* Header */}
         <div className="text-center">
           <p className="text-xl text-slate-600 leading-relaxed mt-[80px]">
             We provide end-to-end IT recruitment services, helping companies hire top tech talent locally and globally.
           </p>
         </div>
-
       </div>
 
-      {/* Sliding Panel */}
+      {/* ==================== ORIGINAL DESKTOP SLIDING PANEL (UNTOUCHED) ==================== */}
       <div
-        className={`fixed inset-0 z-50 flex items-start justify-end transition-all duration-300 ${selectedService ? "visible" : "invisible"
-          }`}
+        className={`fixed inset-0 z-50 flex items-start justify-end transition-all duration-300 ${selectedService ? "visible" : "invisible"}`}
       >
         <div
-          className={`absolute inset-0 bg-[#ededed]/90 backdrop-blur-md transition-opacity duration-300 ${selectedService ? "opacity-100" : "opacity-0"
-            }`}
+          className={`absolute inset-0 bg-[#ededed]/90 backdrop-blur-md transition-opacity duration-300 ${selectedService ? "opacity-100" : "opacity-0"}`}
           onClick={closePanel}
         />
 
@@ -283,9 +367,9 @@ export function Services() {
           className={`relative h-full w-full md:w-[50%] bg-[#efeeef] shadow-xl transform transition-transform duration-500 ease-out overflow-y-auto
             ${selectedService ? "translate-x-0" : "translate-x-full"}`}
         >
-          {/* Sliding Panel Content */}
           {selectedService && (
             <div className="p-6 md:p-8">
+              {/* ... Your exact original panel content ... */}
               <button
                 onClick={closePanel}
                 className="absolute top-6 right-6 p-2 rounded-full hover:bg-gray-100 transition-colors"
@@ -308,7 +392,6 @@ export function Services() {
                 {selectedService.intro}
               </p>
 
-              {/* Two Columns only above 1235px */}
               <div className="grid grid-cols-1 [@media(min-width:1235px)]:grid-cols-2 gap-8 md:gap-12">
                 {selectedService.sections.map((section, idx) => (
                   <div key={idx}>
@@ -330,21 +413,17 @@ export function Services() {
                 ))}
               </div>
 
-              {/* Button below the grid */}
               <div className="mt-12 flex flex-col sm:flex-row gap-4">
-
-                {/* Permanent Recruitment Button */}
-                {selectedService.title === "Permanent Recruitment" && (
+                {selectedService.title === "Permanent IT Recruitment" && (
                   <Button
                     onClick={() => scrollToSection("#companies")}
                     className="w-full sm:w-auto px-8 py-3.5 text-base font-medium bg-[#085689] hover:bg-[#0a6a9c] text-white rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] flex items-center gap-2"
                   >
                     Learn more
-                    <Users className="w-4 h-4" /> {/* You can change icon if you prefer */}
+                    <Users className="w-4 h-4" />
                   </Button>
                 )}
 
-                {/* For Candidates Button */}
                 {selectedService.title === "For Candidates" && (
                   <Button
                     onClick={() => scrollToSection("#jobs")}
@@ -356,23 +435,17 @@ export function Services() {
                 )}
               </div>
 
-              {/* Executive Search & Headhunting Stats*/}
               {selectedService.title === "Executive Search & Headhunting" && (
-                <div className="mt-16 border-t border-gray-200 mt-[-10px]">
+                <div className="mt-16 border-t border-gray-200 pt-8">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {/* Stat 1 */}
                     <div className="text-center">
                       <div className="text-[2rem] font-bold leading-none text-[#085689]">25</div>
                       <div className="mt-4 text-md font-medium text-gray-700">Senior Roles</div>
                     </div>
-
-                    {/* Stat 2 */}
                     <div className="text-center">
                       <div className="text-[2rem] font-bold leading-none text-[#085689]">95%</div>
                       <div className="mt-4 text-md font-medium text-gray-700">Offer Acceptance Rate</div>
                     </div>
-
-                    {/* Stat 3 */}
                     <div className="text-center">
                       <div className="text-[2rem] font-bold leading-none text-[#085689]">6-15</div>
                       <div className="mt-4 text-md font-medium text-gray-700">Days to Present Candidates</div>

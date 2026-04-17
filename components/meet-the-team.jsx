@@ -60,9 +60,9 @@ export function MeetTheTeam() {
     },
     {
       name: "Irina Tojeva",
-      image: "/members/ai/irina.png",
+      image: "/members/ai/irina1.png",
       linkedin: "https://linkedin.com/in/irina-tojeva",
-      quote: "Passion for knowledge, passion for better recruitment, and turning 'the why's' into 'you belong here.",
+      quote: "A rebellious empath who cuts through bad hiring and makes the right matches happen.",
     },
     {
       name: "Victor Stefanov",
