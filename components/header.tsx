@@ -7,16 +7,16 @@ import { Menu, X, ChevronDown } from "lucide-react";
 
 const navItems = [
   { label: "Services", href: "#services" },
-  { 
-    label: "For Companies", 
+  {
+    label: "For Companies",
     hasDropdown: true,
     dropdownItems: [
       { label: "Who we serve", href: "#companies" },
       { label: "Q&A", href: "#faq" },
     ]
   },
-  { 
-    label: "For Candidates", 
+  {
+    label: "For Candidates",
     hasDropdown: true,
     dropdownItems: [
       { label: "Why us?", href: "#candidates" },
@@ -81,28 +81,33 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled ? "backdrop-blur-md py-3 shadow-sm" : "bg-transparent py-6"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "backdrop-blur-md py-3 shadow-sm" : "bg-transparent py-6"
+          }`}
       >
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 xl:px-12">
           <nav className="relative flex items-center justify-between h-14">
-            
-            {/* Logo */}
-            <Link href="/" className="block flex-shrink-0">
+
+            <Link
+              href="/"
+              onClick={(e) => {
+                if (window.location.pathname === "/") {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
+              className="block flex-shrink-0"
+            >
               <img
                 src="/uploaded/recr-logo.png"
-                alt="Recruitment.bg"
+                alt=""
                 className="h-9 lg:h-12 w-auto transition-all duration-300"
               />
             </Link>
 
-
             {/* Desktop Navigation - Hides when scrolled */}
             <div
-              className={`hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 items-center gap-8 transition-opacity duration-300 ${
-                isScrolled ? "opacity-0 pointer-events-none" : "opacity-100"
-              }`}
+              className={`hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 items-center gap-8 transition-opacity duration-300 ${isScrolled ? "opacity-0 pointer-events-none" : "opacity-100"
+                }`}
             >
               {navItems.map((item) => {
                 if (item.hasDropdown) {
@@ -151,9 +156,8 @@ export function Header() {
             {/* Hamburger Button - Shows when scrolled (even on desktop) */}
             <button
               onClick={() => setIsMenuOpen(true)}
-              className={`p-2 text-foreground transition-transform duration-300 hover:scale-110 ${
-                isScrolled ? "block" : "block lg:hidden"
-              }`}
+              className={`p-2 text-foreground transition-transform duration-300 hover:scale-110 ${isScrolled ? "block" : "block lg:hidden"
+                }`}
               aria-label="Open menu"
             >
               <Menu size={22} />
@@ -168,16 +172,14 @@ export function Header() {
 
       {/* ===================== MOBILE / SLIDE MENU ===================== */}
       <div
-        className={`fixed inset-0 z-[999] transition-all duration-500 ${
-          isMenuOpen ? "visible opacity-100" : "invisible opacity-0"
-        }`}
+        className={`fixed inset-0 z-[999] transition-all duration-500 ${isMenuOpen ? "visible opacity-100" : "invisible opacity-0"
+          }`}
       >
         <div className="absolute inset-0 bg-black/50" onClick={() => setIsMenuOpen(false)} />
 
         <div
-          className={`absolute top-0 right-0 h-full w-full lg:w-1/2 bg-[#085689] shadow-2xl transform transition-transform duration-500 ease-out ${
-            isMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+          className={`absolute top-0 right-0 h-full w-full lg:w-1/2 bg-[#085689] shadow-2xl transform transition-transform duration-500 ease-out ${isMenuOpen ? "translate-x-0" : "translate-x-full"
+            }`}
         >
           <div className="flex flex-col h-full p-8 pt-20 relative">
             <button

@@ -25,27 +25,27 @@ const categories = [
     },
     {
         title: "Devops, cloud & platform engineers.",
-        techs: ["Docker", "Kubernetes", "AWS", "Azure", "CI/CD", "Terraform", "GitHub Actions"],
+        techs: ["Docker", "Kubernetes", "AWS", "Azure", "CI/CD", "Terraform", "GitHub Actions", "Platform Engineering", "Monitoring & Logging"],
     },
     {
         title: "QA, Аutomation & Security",
-        techs: ["Test Automation", "Manual Testing", "Security Engineers", "Security Analysts", "DevSecOps"],
+        techs: ["Test Automation", "Manual Testing", "Docker", "Security Engineers", "Security Analysts", "DevSecOps"],
     },
     {
         title: "Data Engineering & BI",
-        techs: ["Hadoop", "Spark", "Tableau", "Power BI", "SQL", "ETL Pipelines", "Snowflake"],
+        techs: ["Hadoop", "Spark", "Tableau", "Power BI", "SQL", "ETL Pipelines", "Snowflake", "ETL / ELT", "CI/CD Pipelines", "SQL & Data Warehousing"],
     },
     {
         title: "AI / ML",
-        techs: ["AI Engineers", "Machine Learning Engineers", "Data Scientists", "Python", "TensorFlow", "PyTorch"],
+        techs: ["AI Engineers", "Machine Learning Engineers", "Data Scientists", "Python", "TensorFlow", "PyTorch", "Deep Learning"],
     },
     {
         title: "UI/UX & Product Design",
-        techs: ["Figma", "Sketch", "Adobe XD", "InVision", "Design Systems", "Prototyping"],
+        techs: ["Figma", "Sketch", "Adobe XD", "InVision", "Design Systems", "Prototyping", "User Research & Testing", "Interaction Design"],
     },
     {
         title: "Mobile Development",
-        techs: ["IOS", "Android", "Swift", "Kotlin", "React Native", "Flutter"],
+        techs: ["IOS", "Android", "Swift", "Kotlin", "React Native", "Flutter", "API Integration", "Mobile UI/UX", "App Performance Optimization", ],
     },
     {
         title: "Engineering Leadership & Management Roles",

@@ -32,7 +32,7 @@ export function CompaniesSection() {
         behavior: "smooth",
       });
 
-    
+
     }
   };
 
@@ -58,9 +58,11 @@ export function CompaniesSection() {
 
         {/* Two Column Content */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-            <div>
-            <div className="inline-flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-full mb-8">
-              <span className="font-semibold">Why Companies Choose Us</span>
+          <div>
+            <div className="flex justify-center lg:justify-start mb-8">
+              <div className="inline-flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-full">
+                <span className="font-semibold">Why Companies Choose Us</span>
+              </div>
             </div>
 
             <ul className="space-y-6">
@@ -74,15 +76,16 @@ export function CompaniesSection() {
               ))}
             </ul>
           </div>
-         
-         
 
-           <div>
-            <div className="inline-flex items-center gap-2 bg-[#085689]/10 text-[#085689] px-4 py-2 rounded-full mb-8">
-              <CheckCircle className="w-5 h-5" />
-              <span className="font-semibold">Hire with Clarity</span>
+
+
+          <div>
+            <div className="flex justify-center lg:justify-start mb-8">
+              <div className="inline-flex items-center gap-2 bg-[#085689]/10 text-[#085689] px-4 py-2 rounded-full">
+                <CheckCircle className="w-5 h-5" />
+                <span className="font-semibold">Hire with Clarity</span>
+              </div>
             </div>
-
             <ul className="space-y-6">
               {hireWithClarity.map((item, index) => (
                 <li key={index} className="flex gap-4">

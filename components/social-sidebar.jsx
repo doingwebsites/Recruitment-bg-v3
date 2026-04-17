@@ -8,7 +8,7 @@ export function SocialSidebar() {
       
       <div className="hidden 2xl:flex fixed left-15 top-1/2 -translate-y-1/2 z-50 flex-col items-center gap-6">
         <a
-          href="https://linkedin.com"
+          href="https://www.linkedin.com/company/recruitment-bg/?originalSubdomain=bg"
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#085689] hover:text-[#78B6D9] transition-colors duration-200"
@@ -18,7 +18,7 @@ export function SocialSidebar() {
         </a>
 
         <a
-          href="https://facebook.com"
+          href="https://www.facebook.com/recruitment.bg.official/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#085689] hover:text-[#78B6D9] transition-colors duration-200"
@@ -41,7 +41,7 @@ export function SocialSidebar() {
       <div className="2xl:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#f3f3f3]  border-slate-200 py-2">
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-center gap-8">
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/company/recruitment-bg/?originalSubdomain=bg"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#085689] hover:text-[#78B6D9] transition-colors"
@@ -55,7 +55,7 @@ export function SocialSidebar() {
           </span>
 
           <a
-            href="https://facebook.com"
+            href="https://www.facebook.com/recruitment.bg.official/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#085689] hover:text-[#78B6D9] transition-colors"
